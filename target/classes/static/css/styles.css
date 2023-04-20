@@ -103,3 +103,22 @@ td, th{
 th{
     border: 1px solid black;
 }
+
+select{
+    margin-top: 10px;
+    width: 275px;
+    padding: 10px;
+    border-radius: 7px;
+    background: #f8f4f2;
+
+}
+
+option{
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+option:hover{
+    cursor:pointer;
+    background: #fff8db;
+}

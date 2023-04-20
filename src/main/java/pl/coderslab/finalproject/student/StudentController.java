@@ -89,7 +89,7 @@ public class StudentController {
             student.setSecondParent(parentRepository.getDistinctByPhoneNumber(phoneNumber2));
             studentRepository.save(student);
         }
-        return "redirect:class/studentlist/" + session.getAttribute("classId");
+        return "redirect:/class/studentlist/" + session.getAttribute("classId");
 
     }
     //michał(nie wiemy czy działa nie testowaliśmy)

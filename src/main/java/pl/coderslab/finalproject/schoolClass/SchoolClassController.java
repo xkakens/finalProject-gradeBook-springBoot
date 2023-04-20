@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.finalproject.student.Student;
-import pl.coderslab.finalproject.student.StudentDao;
+import pl.coderslab.finalproject.student.StudentRepository;
 import pl.coderslab.finalproject.teacher.Teacher;
-import pl.coderslab.finalproject.teacher.TeacherDao;
+import pl.coderslab.finalproject.teacher.TeacherRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,26 +19,28 @@ import java.util.List;
 @Controller
 public class SchoolClassController {
     //michał
-    private final SchoolClassDao schoolClassDao;
-    private final StudentDao studentDao;
-    private final TeacherDao teacherDao;
+    private final StudentRepository studentRepository;
+    private final SchoolClassRepository schoolClassRepository;
+    private final TeacherRepository teacherRepository;
 
-    public SchoolClassController(SchoolClassDao schoolClassDao, StudentDao studentDao, TeacherDao teacherDao){
-        this.schoolClassDao = schoolClassDao;
-        this.studentDao = studentDao;
-        this.teacherDao = teacherDao;
+    public SchoolClassController(StudentRepository studentRepository, SchoolClassRepository schoolClassRepository, TeacherRepository teacherRepository) {
+        this.studentRepository = studentRepository;
+        this.schoolClassRepository = schoolClassRepository;
+        this.teacherRepository = teacherRepository;
     }
+
+
     //bartek
     @RequestMapping("/list")
     public String userHome(Model model){
-        List<SchoolClass> classes = schoolClassDao.schoolClassList();
+        List<SchoolClass> classes = schoolClassRepository.findAll();
         model.addAttribute("classes",classes);
         return "class/all";
     }
     //michał
     @GetMapping("/all")
     public String allClasses(Model model){
-        List<SchoolClass> classes = schoolClassDao.schoolClassList();
+        List<SchoolClass> classes = schoolClassRepository.findAll();
         model.addAttribute("classes", classes);
         return "class/all";
     }
@@ -48,7 +50,7 @@ public class SchoolClassController {
         //sesja bartek
         HttpSession sess = request.getSession();
         sess.setAttribute("classId",id);
-        List<Student> students = studentDao.classStudents(id);
+        List<Student> students = studentRepository.findStudentsBySchoolClassId(id);
         model.addAttribute("students", students);
         model.addAttribute("classId",id);
         return "class/studentlist";
@@ -56,7 +58,7 @@ public class SchoolClassController {
     //bartek
     @GetMapping("/add")
     public String addClass(Model model){
-        List<Teacher> teachers = teacherDao.allTeachers();
+        List<Teacher> teachers = teacherRepository.findAll();
         model.addAttribute("teachers", teachers);
         return "class/add";
     }
@@ -65,12 +67,12 @@ public class SchoolClassController {
     @PostMapping("/add")
     public String addClass(HttpServletRequest request){
         String name = request.getParameter("name");
-        String tutorId = request.getParameter("tutorId");
+        Long tutorId = Long.parseLong(request.getParameter("tutorId"));
         SchoolClass schoolClass = new SchoolClass();
         schoolClass.setName(name);
-        Teacher tutor = teacherDao.specificTeacher(Long.parseLong(tutorId));
+        Teacher tutor = teacherRepository.findTeacherById(tutorId);
         schoolClass.setTutor(tutor);
-        schoolClassDao.addSchoolClass(schoolClass);
+        schoolClassRepository.save(schoolClass);
         return "redirect:all";
     }
 }

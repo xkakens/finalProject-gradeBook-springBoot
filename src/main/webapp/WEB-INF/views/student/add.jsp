@@ -17,10 +17,16 @@
 <h1>Dodawanie studenta</h1>
 <form action="/student/add" method="post">
   <input type="text" placeholder="Imię" name="firstName"/><br>
-  <input type="text" placeholder="Nazwisko" name="lastName"></br>
+  <input type="text" placeholder="Nazwisko" name="lastName"><br>
+  Rodzic 1:<br>
   <input type="number" value="0" name="parentOnePhoneNumber"/><br>
+  <input type="text" name="parentOneFirstName"><br>
+  <input type="text" name="parentOneLastName"><br>
+  Rodzic 2:<br>
   <input type="number" value="0" name="parentTwoPhoneNumber"/><br>
-  <input type="date" name="dateOfBirth"/><br>
+  <input type="text" name="parentTwoFirstName"><br>
+  <input type="text" name="parentTwoLastName"><br>
+  <input type="date" name="dateOfBirth"><br>
   <input type="submit" value="Zapisz">
 </form>
 </body>

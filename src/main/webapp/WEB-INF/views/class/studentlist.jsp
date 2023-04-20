@@ -9,15 +9,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
     <title>Title</title>
 </head>
 <body>
-<a href="/class/all"><-- Powrót</a><br>
-<a href="/student/add">Dodaj ucznia</a>
-<c:forEach var="student" items="${students}">
-    <h1>${student.firstName} ${student.lastName}</h1>
-    <br>
-    <a href="/student/${student.id}">Więcej</a>
-</c:forEach>
+<div class="container">
+    <a href="/class/all"><button class="goBack"><<<</button></a>
+    <a href="/student/add"><button class="goBack">Dodaj ucznia</button></a>
+    <h1>Lista uczniów klasy ${schoolClass.name}</h1>
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Akcje</th>
+        </thead>
+        <tbody>
+            <c:forEach var="student" items="${students}">
+                <tr>
+                    <td>${student.id}</td>
+                    <td>${student.firstName}</td>
+                    <td>${student.lastName}</td>
+                    <td><a href="/student/${student.id}">Więcej</a></td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

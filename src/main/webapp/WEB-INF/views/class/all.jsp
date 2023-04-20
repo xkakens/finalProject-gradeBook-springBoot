@@ -15,35 +15,35 @@
     <title class="header">Klasy</title>
 </head>
 <body>
-<a href="/class/add">Dodaj klasę</a>
-
-
-<div class="card-header d-flex justify-content-between">
-    <div class="header-title">
-        <h2 class="card-title">Lista klas</h2>
-    </div>
-</div>
-<div class="table-responsive">
-<table id="class-list-table" class="table table-striped table-bordered mt-4 " role="grid" aria-describedby="class-list-page-info">
-    <thead>
-    <tr>
-        <th scope="col">Nazwa</th>
-        <th scope="col">ID</th>
-        <th scope="col">Imię wychowawcy</th>
-        <th scope="col">Nazwisko wychowawcy</th>
-    </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="schoolClass" items="${classes}">
+<div class="container">
+    <a href="/class/add">
+        <button class="goBack">Dodaj klasę</button>
+    </a>
+    <h2>Lista klas</h2>
+    <div class="table-responsive">
+        <table>
+            <thead>
             <tr>
-                <td>${schoolClass.name}</td>
-                <td>${schoolClass.id}</td>
-                <td>${schoolClass.tutor.firstName}</td>
-                <td>${schoolClass.tutor.lastName}</td>
+                <th scope="col">ID</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Imię wychowawcy</th>
+                <th scope="col">Nazwisko wychowawcy</th>
+                <th scope="col">Akcje</th>
             </tr>
-        </c:forEach>
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                <c:forEach var="schoolClass" items="${classes}">
+                    <tr>
+                        <td>${schoolClass.id}</td>
+                        <td>${schoolClass.name}</td>
+                        <td>${schoolClass.tutor.firstName}</td>
+                        <td>${schoolClass.tutor.lastName}</td>
+                        <td><a href="">Zarządzaj</a>&nbsp;&nbsp;&nbsp;<a href="/class/studentlist/${schoolClass.id}">Pokaż listę uczniów</a></td>
+                    </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

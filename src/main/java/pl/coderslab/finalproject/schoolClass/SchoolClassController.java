@@ -53,6 +53,7 @@ public class SchoolClassController {
         List<Student> students = studentRepository.findStudentsBySchoolClassId(id);
         model.addAttribute("students", students);
         model.addAttribute("classId",id);
+        model.addAttribute("schoolClass",schoolClassRepository.getById(id));
         return "class/studentlist";
     }
     //bartek

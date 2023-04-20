@@ -13,27 +13,24 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/class/all"><--- Powrót</a>
-<br>
-<<<<<<< HEAD
+<div class="container">
+<a href="/class/all"><button class="goBack"><<<</button></a>
+<br><br>
+    <b>Nauczyciele:</b>
+<ul>
 <c:forEach var="teacher" items="${teachers}">
-    <h1 class="header">${teacher.id}: ${teacher.firstName} ${teacher.lastName}</h1>
-    <br>
+    <li class="header">${teacher.id}: ${teacher.firstName} ${teacher.lastName}</li>
 </c:forEach>
-=======
-<%--<c:forEach var="teacher" items="${teachers}">--%>
-<%--    <h1>${teacher.id}: ${teacher.firstName} ${teacher.lastName}</h1>--%>
-<%--    <br>--%>
-<%--</c:forEach>--%>
+</ul>
 <div class="header-title">
-    <h2 class="card-title">
-        Dodaj nowego nauczyciela</h2>
 </div>
->>>>>>> ca994eb4b4439471071bb78566ef384bfdcd84e2
     <form action="/class/add" method="post">
-        <input class="form-control" type="text" name="name" placeholder="nazwa" id="name"><br>
-        <input type="number" name="tutorId">ID tutora<br>
+        <br>Nazwa klasy</br>
+        <input type="text" name="name" id="name"><br>
+        <br>ID tutora<br>
+        <input type="number" name="tutorId">
         <input type="submit">
     </form>
+</div>
 </body>
 </html>

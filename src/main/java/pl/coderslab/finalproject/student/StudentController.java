@@ -77,19 +77,21 @@ public class StudentController {
             parent1.setPhoneNumber(phoneNumber1);
             parentRepository.save(parent1);
             student.setFirstParent(parent1);
+        }else {
+            student.setFirstParent(parentRepository.getDistinctByPhoneNumber(phoneNumber1));
+        }
+        if(parentRepository.countParentByPhoneNumber(phoneNumber2) == 0){
             Parent parent2 = new Parent();
             parent2.setFirstName(parentTwoFirstName);
             parent2.setLastName(parentTwoLastName);
             parent2.setPhoneNumber(phoneNumber2);
             parentRepository.save(parent2);
             student.setSecondParent(parent2);
-            studentRepository.save(student);
-        }else {
-            student.setFirstParent(parentRepository.getDistinctByPhoneNumber(phoneNumber1));
+        } else {
             student.setSecondParent(parentRepository.getDistinctByPhoneNumber(phoneNumber2));
-            studentRepository.save(student);
         }
-        return "redirect:class/studentlist/" + session.getAttribute("classId");
+        studentRepository.save(student);
+        return "redirect:/class/studentlist/" + session.getAttribute("classId");
 
     }
     //michał(nie wiemy czy działa nie testowaliśmy)

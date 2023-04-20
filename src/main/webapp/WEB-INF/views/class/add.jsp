@@ -9,14 +9,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
     <title>Title</title>
 </head>
 <body>
 <a href="/class/all"><--- Powrót</a>
 <br>
 <c:forEach var="teacher" items="${teachers}">
-    <h1>${teacher.id}: ${teacher.firstName} ${teacher.lastName}</h1>
+    <h1 class="header">${teacher.id}: ${teacher.firstName} ${teacher.lastName}</h1>
     <br>
 </c:forEach>
     <form action="/class/add" method="post">

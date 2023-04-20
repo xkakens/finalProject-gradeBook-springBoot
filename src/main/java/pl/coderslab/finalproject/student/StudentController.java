@@ -55,7 +55,7 @@ public class StudentController {
         model.addAttribute("classId",session.getAttribute("classId"));
         return "student/add";
     }
-    //michał
+    //michał, na koncu poprawki bartek
     @PostMapping("/add")
     public String addStudent(HttpServletRequest request){
         HttpSession session = request.getSession();

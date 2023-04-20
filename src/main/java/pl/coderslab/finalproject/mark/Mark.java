@@ -2,6 +2,8 @@ package pl.coderslab.finalproject.mark;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.finalproject.student.Student;
+import pl.coderslab.finalproject.subject.Subject;
 
 import javax.persistence.*;
 
@@ -20,7 +22,7 @@ public class Mark {
     @ManyToOne
     private Subject subject;
     @ManyToOne
-    private pl.coderslab.mark.MarkType markType;
+    private MarkType markType;
     @ManyToOne
     private Student student;
 }

@@ -2,6 +2,7 @@ package pl.coderslab.finalproject.schoolClass;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.finalproject.teacher.Teacher;
 
 import javax.persistence.*;
 //michał

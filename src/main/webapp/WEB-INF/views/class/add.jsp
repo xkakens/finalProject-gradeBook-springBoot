@@ -16,19 +16,24 @@
 <div class="container">
 <a href="/class/all"><button class="goBack"><<<</button></a>
 <br><br>
-    <b>Nauczyciele:</b>
-<ul>
-<c:forEach var="teacher" items="${teachers}">
-    <li class="header">${teacher.id}: ${teacher.firstName} ${teacher.lastName}</li>
-</c:forEach>
-</ul>
+<%--    <b>Nauczyciele:</b>--%>
+<%--<ul>--%>
+<%--<c:forEach var="teacher" items="${teachers}">--%>
+<%--    <li class="header">${teacher.id}: ${teacher.firstName} ${teacher.lastName}</li>--%>
+<%--</c:forEach>--%>
+<%--</ul>--%>
 <div class="header-title">
 </div>
     <form action="/class/add" method="post">
         <br>Nazwa klasy</br>
         <input type="text" name="name" id="name"><br>
-        <br>ID tutora<br>
-        <input type="number" name="tutorId">
+<%--        <br>ID tutora<br>--%>
+<%--        <input type="number" name="tutorId">--%>
+        <select size="10">
+            <c:forEach var="teacher" items="${teachers}">
+                <option> ${teacher.id}: ${teacher.firstName} ${teacher.lastName}</option>
+            </c:forEach>
+        </select>
         <input type="submit">
     </form>
 </div>

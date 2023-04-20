@@ -11,8 +11,10 @@
 <html>
 <head>
     <title>Dodawanie ucznia</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
+<div class="container">
 <a href="/class/studentlist/${classId}"><-- Powrót</a><br>
 <h1>Dodawanie studenta</h1>
 <form action="/student/add" method="post">
@@ -29,5 +31,6 @@
   <input type="date" name="dateOfBirth"><br>
   <input type="submit" value="Zapisz">
 </form>
+</div>
 </body>
 </html>

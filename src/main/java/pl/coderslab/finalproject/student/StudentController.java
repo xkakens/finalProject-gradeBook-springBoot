@@ -84,12 +84,12 @@ public class StudentController {
             parentRepository.save(parent2);
             student.setSecondParent(parent2);
             studentRepository.save(student);
-            return "student/all";
+        }else {
+            student.setFirstParent(parentRepository.getDistinctByPhoneNumber(phoneNumber1));
+            student.setSecondParent(parentRepository.getDistinctByPhoneNumber(phoneNumber2));
+            studentRepository.save(student);
         }
-        student.setFirstParent(parentRepository.getDistinctByPhoneNumber(phoneNumber1));
-        student.setSecondParent(parentRepository.getDistinctByPhoneNumber(phoneNumber2));
-        studentRepository.save(student);
-        return "student/all";
+        return "class/studentlist/" + session.getAttribute("classId");
 
     }
     //michał(nie wiemy czy działa nie testowaliśmy)

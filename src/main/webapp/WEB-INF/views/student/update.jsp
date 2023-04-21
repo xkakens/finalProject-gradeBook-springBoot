@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="container">
-<a href="/student/${student.id}"><button class="goBack"><<<</button></a><br>
+<a class="goBackA" href="/student/${student.id}"><button class="goBack"><<<</button></a><br>
     <h1>Zmiana danych ucznia</h1>
     <h3>${student.firstName} ${student.lastName}</h3>
     <br>

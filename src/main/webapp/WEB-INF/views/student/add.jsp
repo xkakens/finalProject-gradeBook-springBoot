@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="container">
-  <a href="/class/studentlist/${classId}"><button class="goBack"><<<</button></a><br>
+  <a class="goBackA" href="/class/studentlist/${classId}"><button class="goBack"><<<</button></a><br>
 <h1>Dodawanie studenta</h1>
 <form action="/student/add" method="post">
   <input type="text" placeholder="Imię" name="firstName"/><br>

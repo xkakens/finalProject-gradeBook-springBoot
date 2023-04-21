@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: michalszyba
-  Date: 17/04/2023
-  Time: 15:29
+  User: Admin
+  Date: 21.04.2023
+  Time: 15:25
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -10,18 +10,23 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
-    <title>Dane ucznia</title>
+    <title>Title</title>
 </head>
 <body>
 <div class="container">
-    <a class="goBackA" href="/class/studentlist/${student.schoolClass.id}">
+    <a class="goBackA" href="/teacher/all">
         <button class="goBack"><<<</button>
-    </a><br>
-    <h1>${student.firstName} ${student.lastName}</h1>
-    <h3>Klasa: ${schoolClass.name}</h3>
-    <a href="/student/update/${student.id}">
-        <button class="goBack">Edycja danych ucznia</button>
     </a>
+    <h1>Dodawanie nauczyciela</h1>
+    <br>
+    <form action="/teacher/add" method="post">
+        Imię<br>
+        <input type="text" name="firstName"/>
+        <br><br>
+        Nazwisko<br>
+        <input type="text" name="lastName"/>
+        <input type="submit" value="Zapisz"/>
+    </form>
 </div>
 </body>
 </html>

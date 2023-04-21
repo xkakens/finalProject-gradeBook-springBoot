@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="container">
-    <a href="/class/all"><button class="goBack"><<<</button></a>
+    <a class="goBackA" href="/class/all"><button class="goBack"><<<</button></a>
     <a href="/student/add"><button class="goBack">Dodaj ucznia</button></a>
     <h1>Lista uczniów klasy ${schoolClass.name}</h1>
     <table>

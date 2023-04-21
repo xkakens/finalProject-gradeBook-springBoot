@@ -14,14 +14,8 @@
 </head>
 <body>
 <div class="container">
-<a href="/class/all"><button class="goBack"><<<</button></a>
+<a class="goBackA" href="/class/all"><button class="goBack"><<<</button></a>
 <br><br>
-<%--    <b>Nauczyciele:</b>--%>
-<%--<ul>--%>
-<%--<c:forEach var="teacher" items="${teachers}">--%>
-<%--    <li class="header">${teacher.id}: ${teacher.firstName} ${teacher.lastName}</li>--%>
-<%--</c:forEach>--%>
-<%--</ul>--%>
 <div class="header-title">
 </div>
     <form action="/class/add" method="post">

@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Uczniowie</title>
 </head>
 <body>
 <c:forEach var="student" items="${students}">

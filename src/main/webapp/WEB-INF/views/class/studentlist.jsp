@@ -10,7 +10,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
-    <title>Title</title>
+    <title>Lista uczniów</title>
 </head>
 <body>
 <div class="container">

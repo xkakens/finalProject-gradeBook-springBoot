@@ -10,7 +10,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
-    <title>Title</title>
+    <title>Dodawanie klasy</title>
 </head>
 <body>
 <div class="container">
@@ -29,9 +29,9 @@
         <input type="text" name="name" id="name"><br>
 <%--        <br>ID tutora<br>--%>
 <%--        <input type="number" name="tutorId">--%>
-        <select size="10">
+        <select size="10" name="tutorId">
             <c:forEach var="teacher" items="${teachers}">
-                <option> ${teacher.id}: ${teacher.firstName} ${teacher.lastName}</option>
+                <option value="${teacher.id}"> ${teacher.id}: ${teacher.firstName} ${teacher.lastName}</option>
             </c:forEach>
         </select>
         <input type="submit">

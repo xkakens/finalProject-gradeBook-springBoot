@@ -43,6 +43,7 @@ public class StudentController {
     public String specificStudent(@PathVariable("id") Long id, Model model, HttpServletRequest request){
         HttpSession sess = request.getSession();
         model.addAttribute("classId",sess.getAttribute("classId"));
+        model.addAttribute("schoolClass",schoolClassRepository.getById(Long.parseLong(sess.getAttribute("classId").toString())));
         Student s = studentRepository.getById(id);
         model.addAttribute("student", s);
         LocalDate dateOfBirth = s.getDateOfBirth();

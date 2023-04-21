@@ -9,16 +9,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
+    <title>Dane ucznia</title>
 </head>
 <body>
-<a href="/class/studentlist/${student.schoolClass.id}"><-- Powrót</a><br>
-Imie: ${student.firstName}
-<br>
-Nazwisko: ${student.lastName}
-<br>
-Klasa: ${classId}
-<br>
-<a href="/student/update/${student.id}">Edycja ucznia</a>
+<div class="container">
+    <a href="/class/studentlist/${student.schoolClass.id}">
+        <button class="goBack"><<<</button>
+    </a><br>
+    <h1>${student.firstName} ${student.lastName}</h1>
+    <h3>Klasa: ${schoolClass.name}</h3>
+    <a href="/student/update/${student.id}">
+        <button class="goBack">Edycja danych ucznia</button>
+    </a>
+</div>
 </body>
 </html>

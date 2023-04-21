@@ -9,15 +9,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Zmiana danych ucznia</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
-<a href="/student/${student.id}"><-- Powrót</a><br>
+<div class="container">
+<a href="/student/${student.id}"><button class="goBack"><<<</button></a><br>
     <h1>Zmiana danych ucznia</h1>
-    <c:forEach var="schoolClass" items="${classes}">
-        ${schoolClass.id}: ${schoolClass.name}
-        <br>
-    </c:forEach>
+    <h3>${student.firstName} ${student.lastName}</h3>
+    <br>
     <!-- michał podstawy formularza -->
     <form action="/student/update/${student.id}" method="post">
         <input type="text" name="firstName" value="${student.firstName}">
@@ -26,9 +26,13 @@
         <br>
         <input type="date" name="dateOfBirth" value="${student.dateOfBirth}">
         <br>
-        <input type="number" name="classId" value="${student.schoolClass.id}">
-        <br>
+        <select size="10" name="classId">
+            <c:forEach var="schoolClass" items="${classes}">
+                <option value="${schoolClass.id}"> ${schoolClass.id}: ${schoolClass.name}</option>
+            </c:forEach>
+        </select>
         <input type="submit" value="Zapisz">
     </form>
+</div>
 </body>
 </html>

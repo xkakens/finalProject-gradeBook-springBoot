@@ -12,22 +12,21 @@
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 
-    <title class="header">Klasy</title>
+    <title>Lista klas</title>
 </head>
 <body>
 <div class="container">
     <a href="/class/add">
         <button class="goBack">Dodaj klasę</button>
     </a>
-    <h2>Lista klas</h2>
+    <h1>Lista klas</h1>
     <div class="table-responsive">
         <table>
             <thead>
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nazwa</th>
-                <th scope="col">Imię wychowawcy</th>
-                <th scope="col">Nazwisko wychowawcy</th>
+                <th scope="col">Wychowawca</th>
                 <th scope="col">Akcje</th>
             </tr>
             </thead>
@@ -36,8 +35,7 @@
                     <tr>
                         <td>${schoolClass.id}</td>
                         <td>${schoolClass.name}</td>
-                        <td>${schoolClass.tutor.firstName}</td>
-                        <td>${schoolClass.tutor.lastName}</td>
+                        <td>${schoolClass.tutor.firstName} ${schoolClass.tutor.lastName} (${schoolClass.tutor.id})</td>
                         <td><a href="">Zarządzaj</a>&nbsp;&nbsp;&nbsp;<a href="/class/studentlist/${schoolClass.id}">Pokaż listę uczniów</a></td>
                     </tr>
             </c:forEach>

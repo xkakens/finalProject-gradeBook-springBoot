@@ -9,6 +9,10 @@ body{
     background-attachment: fixed;
 }
 
+h2{
+    margin-bottom: 0px;
+}
+
 ul{
     width: 300px;
     margin-left: auto;

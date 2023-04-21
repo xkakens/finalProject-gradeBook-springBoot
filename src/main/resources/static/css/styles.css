@@ -41,6 +41,12 @@ table{
 
 a{
     color: blue;
+    padding: 0;
+    margin: 0;
+}
+
+.goBackA{
+    text-decoration: none;
 }
 
 input{

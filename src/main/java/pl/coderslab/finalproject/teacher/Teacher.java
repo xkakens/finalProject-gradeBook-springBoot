@@ -7,6 +7,8 @@ import pl.coderslab.finalproject.subject.Subject;
 import javax.persistence.*;
 import java.util.List;
 
+
+//michał
 @Entity
 @Getter
 @Setter

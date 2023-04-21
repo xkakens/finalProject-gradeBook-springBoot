@@ -30,7 +30,7 @@
                     <td>${student.id}</td>
                     <td>${student.firstName}</td>
                     <td>${student.lastName}</td>
-                    <td><a href="/student/${student.id}">Więcej</a></td>
+                    <td><a href="/student/${student.id}">Więcej</a> <a href="/mark/add/${student.id}">Dodaj ocenę</a></td>
                 </tr>
             </c:forEach>
         </tbody>

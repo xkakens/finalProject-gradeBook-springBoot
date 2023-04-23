@@ -17,22 +17,27 @@
 </head>
 <body>
 <div class="container">
-  <h1>Tworzenie przedmiotu</h1>
+    <a class="goBackA" href="/subject/all">
+        <button class="goBack"><<<</button>
+    </a>
+    <h1>Tworzenie przedmiotu</h1>
     <form action="/subject/add" method="post">
         Nazwa<br>
         <input type="text" name="name"/>
-        <br><br><h2>Nauczyciele</h2><br>
+        <br><br>
+        <h2>Nauczyciele</h2><br>
         <button type="button" class="goBack" onclick="addTeacher()">+</button>
         <button type="button" class="goBack" onclick="removeTeacher()">-</button>
+        <input type="hidden" id="hiddenNumber" value="2">
         <div id="teacherList">
-          <div>
-            <p style="font-size: 20px; font-weight: 900;" name="p2">1. nauczyciel</p>
-            <select size="3" name="teacher1" required>
-              <c:forEach var="teacher" items="${teachers}">
-                <option value="${teacher.id}"> ${teacher.id}: ${teacher.firstName} ${teacher.lastName}</option>
-              </c:forEach>
-            </select>
-          </div>
+            <div>
+                <p style="font-size: 20px; font-weight: 900;" name="p2">1. nauczyciel</p>
+                <select size="3" name="teacher1" required>
+                    <c:forEach var="teacher" items="${teachers}">
+                        <option value="${teacher.id}"> ${teacher.id}: ${teacher.firstName} ${teacher.lastName}</option>
+                    </c:forEach>
+                </select>
+            </div>
         </div>
         <input type="submit" value="Dodaj"/>
     </form>

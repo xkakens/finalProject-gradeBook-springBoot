@@ -12,8 +12,6 @@
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
   <title> Lista ocen </title>
 </head>
-
-
 <body>
 <div class="container">
 <h1 class="header">Oceny ucznia ${student.firstName} ${student.lastName}</h1>
@@ -32,7 +30,8 @@
     <tr>
       <td>${mark.value}</td>
       <td>${mark.subject.name}</td>
-      <td> <a href="/mark/update/${mark.id}"> Zmień </a> <a href="/mark/remove/${mark.id}"> Usuń </a> </td>
+      <td>${mark.importance}</td>
+      <td> <a href="/mark/update/${mark.id}"> Zmień </a> <a href="/mark/remove/${mark.id}"> Usuń </a></td>
     </tr>
   </c:forEach>
   </tbody>

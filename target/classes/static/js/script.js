@@ -1,6 +1,8 @@
 let nextTeacherId = 2;
 const teacherListDiv = document.getElementById("teacherList");
 function addTeacher(){
+    const teacherDiv = document.createElement("div");
+
     const newSelect = document.createElement("select");
     newSelect.setAttribute("size","3");
     newSelect.setAttribute("name",`teacher${nextTeacherId}`);

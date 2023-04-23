@@ -60,7 +60,7 @@ public class MarkController {
     public String updateMark(HttpServletRequest request, @PathVariable Long id, Model model){
         HttpSession session = request.getSession();
         model.addAttribute("mark", markRepository.getById(id));
-        return "mark/edit";
+        return "mark/update";
     }
     @PostMapping("/update/{id}")
     public String updateMark(HttpServletRequest request, @PathVariable Long id){

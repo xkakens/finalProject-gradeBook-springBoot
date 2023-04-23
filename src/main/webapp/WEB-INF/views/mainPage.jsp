@@ -13,6 +13,7 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
+
 <body>
     <div class="container">
         <a href="/class/all"><button class="goBack">Lista klas</button></a>

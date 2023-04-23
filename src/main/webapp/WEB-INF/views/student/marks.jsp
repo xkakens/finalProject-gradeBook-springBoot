@@ -32,7 +32,7 @@
     <tr>
       <td>${mark.value}</td>
       <td>${mark.subject.name}</td>
-      <td> <a href=""> Zmień </a> <a href="/mark/remove/${mark.id}"> Usuń </a></td>
+      <td> <a href="/mark/update/${mark.id}"> Zmień </a> <a href="/mark/remove/${mark.id}"> Usuń </a> </td>
     </tr>
   </c:forEach>
   </tbody>

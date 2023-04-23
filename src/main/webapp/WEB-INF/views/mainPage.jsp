@@ -17,6 +17,7 @@
     <div class="container">
         <a href="/class/all"><button class="goBack">Lista klas</button></a>
         <a href="/teacher/all"><button class="goBack">Lista nauczycieli</button></a>
+        <a href="/subject/all"><button class="goBack">Lista przedmiotów</button></a>
     </div>
 </body>
 </html>

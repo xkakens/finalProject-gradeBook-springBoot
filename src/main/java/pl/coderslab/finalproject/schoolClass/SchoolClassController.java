@@ -76,4 +76,12 @@ public class SchoolClassController {
         schoolClassRepository.save(schoolClass);
         return "redirect:all";
     }
+    //bartek
+    @GetMapping("/manage/{id}")
+    public String manageClass(@PathVariable long id, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.setAttribute("classId",id);
+        return "class/manage";
+    }
+
 }

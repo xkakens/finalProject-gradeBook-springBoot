@@ -2,11 +2,11 @@ package pl.coderslab.finalproject.subject;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.finalproject.teacher.Teacher;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
+
 //michał
 @Entity
 @Getter
@@ -16,4 +16,6 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @ManyToMany
+    private List<Teacher> teachers;
 }

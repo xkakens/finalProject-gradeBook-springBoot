@@ -18,6 +18,4 @@ public class Teacher {
     private Long id;
     private String firstName;
     private String lastName;
-    @ManyToMany
-    private List<Subject> subjects;
 }

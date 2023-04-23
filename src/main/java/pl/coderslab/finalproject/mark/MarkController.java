@@ -56,5 +56,22 @@ public class MarkController {
         return "redirect:/student/marks/" + session.getAttribute("studentId");
     }
 
+    @GetMapping("/update/{id}")
+    public String updateMark(HttpServletRequest request, @PathVariable Long id, Model model){
+        HttpSession session = request.getSession();
+        model.addAttribute("mark", markRepository.getById(id));
+        return "mark/update";
+    }
+    @PostMapping("/update/{id}")
+    public String updateMark(HttpServletRequest request, @PathVariable Long id){
+        HttpSession session = request.getSession();
+        Mark m = markRepository.getById(id);
+        m.setValue(Integer.parseInt(request.getParameter("value")));
+        m.setImportance(Integer.parseInt(request.getParameter("importance")));
+        m.setDescription(request.getParameter("description"));
+        markRepository.save(m);
+        return "redirect:/student/marks/" + session.getAttribute("studentId");
+    }
+
 
 }

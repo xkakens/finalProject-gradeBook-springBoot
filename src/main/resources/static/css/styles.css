@@ -6,6 +6,18 @@ body{
     text-align: center;
     background-size: 100vw 120vh;
     background-attachment: fixed;
+    overflow: hidden;
+}
+
+.removeTeacher{
+    min-width: 100px;
+    height: 35px;
+    background: #ffbb68;
+    color: white;
+    font-weight: 900;
+    text-align: center;
+    border: 0;
+    font-size: 13px;
 }
 
 h2{
@@ -36,6 +48,7 @@ table{
     box-shadow: black 0 0 50px;
     height: 100vh;
     text-align: center;
+    overflow: scroll;
 }
 
 a{
@@ -98,7 +111,7 @@ form{
     font-size: 20px;
 }
 
-.goBack:hover{
+.goBack:hover, .removeTeacher:hover{
     box-shadow: black 0px 0px 3px;
     cursor: pointer;
 }

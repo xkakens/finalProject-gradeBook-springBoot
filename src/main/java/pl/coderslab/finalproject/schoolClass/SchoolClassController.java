@@ -89,7 +89,7 @@ public class SchoolClassController {
     @PostMapping("/update/{id}")
     public String updateClass(@PathVariable Long id, HttpServletRequest request){
         SchoolClass schoolClass = schoolClassRepository.getById(id);
-
+        schoolClass.setTutor(teacherRepository.getById(Long.parseLong(request.getParameter("tutorId"))));
         schoolClass.setName(request.getParameter("name"));
         schoolClassRepository.save(schoolClass);
         return "redirect:/class/all";

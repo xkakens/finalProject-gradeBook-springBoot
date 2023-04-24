@@ -116,7 +116,7 @@ form{
     font-size: 20px;
 }
 
-.goBack:hover, .removeTeacher:hover{
+.goBack:hover, .removeTeacher:hover, .deleteNo:hover, .deleteYes:hover{
     box-shadow: black 0px 0px 3px;
     cursor: pointer;
 }
@@ -149,4 +149,22 @@ option{
 option:hover{
     cursor:pointer;
     background: #fff8db;
+}
+
+.deleteNo, .deleteYes{
+    min-width: 100px;
+    height: 30px;
+    color: white;
+    font-weight: 900;
+    text-align: center;
+    border: 0;
+    font-size: 13px;
+}
+
+.deleteNo{
+    background: green;
+}
+
+.deleteYes{
+    background: red;
 }

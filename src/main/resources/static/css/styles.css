@@ -1,5 +1,5 @@
 body{
-    font-family: "Corbel" !important;
+    font-family: "Corbel", serif !important;
     background-image: url("https://scontent.xx.fbcdn.net/v/t1.15752-9/341097194_1286142925308642_3652877201242126564_n.png?_nc_cat=109&ccb=1-7&_nc_sid=aee45a&_nc_ohc=2feZqOFmwpsAX8AfaVi&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdTJKMpuoakMe_E7406uBsweBHLR5md80txfc_HzF-uH6A&oe=6468B7E3");
     margin: 0;
     backdrop-filter: blur(10px);
@@ -116,7 +116,7 @@ form{
     font-size: 20px;
 }
 
-.goBack:hover, .removeTeacher:hover{
+.goBack:hover, .removeTeacher:hover, .deleteNo:hover, .deleteYes:hover{
     box-shadow: black 0px 0px 3px;
     cursor: pointer;
 }
@@ -149,4 +149,22 @@ option{
 option:hover{
     cursor:pointer;
     background: #fff8db;
+}
+
+.deleteNo, .deleteYes{
+    min-width: 100px;
+    height: 30px;
+    color: white;
+    font-weight: 900;
+    text-align: center;
+    border: 0;
+    font-size: 13px;
+}
+
+.deleteNo{
+    background: green;
+}
+
+.deleteYes{
+    background: red;
 }

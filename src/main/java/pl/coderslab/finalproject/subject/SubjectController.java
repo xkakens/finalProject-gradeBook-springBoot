@@ -40,12 +40,13 @@ public class SubjectController {
     @PostMapping("/add")
     public String addSubject(HttpServletRequest request){
         List<Teacher> teachers = new ArrayList<>();
-        for(int i = 1; i < 5+1; i++){
+        for(int i = 1; true; i++){
             String x = request.getParameter("teacher" + i);
             if(x == null){
                 break;
             } else {
-                teachers.add(teacherRepository.findTeacherById(Long.parseLong(x)));
+                Teacher teacher = teacherRepository.findTeacherById(Long.parseLong(x));
+                teachers.add(teacher);
             }
         }
         String name = request.getParameter("name");

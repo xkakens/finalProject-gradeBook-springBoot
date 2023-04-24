@@ -9,10 +9,12 @@ import pl.coderslab.finalproject.parent.ParentRepository;
 import pl.coderslab.finalproject.schoolClass.SchoolClass;
 import pl.coderslab.finalproject.mark.Mark;
 import pl.coderslab.finalproject.schoolClass.SchoolClassRepository;
+import pl.coderslab.finalproject.subject.Subject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -129,6 +131,7 @@ public class StudentController {
     @GetMapping("/marks/{id}")
     public String studentMarks(@PathVariable Long id, Model model){
         List<Mark> marks = markRepository.findAllByStudent(studentRepository.getById(id));
+        marks.sort(Comparator.comparing(Mark::getSubject, Comparator.comparing(Subject::getName)));
         Student s = studentRepository.getById(id);
         model.addAttribute("student",s);
         model.addAttribute("marks", marks);

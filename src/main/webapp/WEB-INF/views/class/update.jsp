@@ -14,13 +14,13 @@
 </head>
 <body>
 <div class="container">
-  <a class="goBackA" href="/class/all"><button class="goBack">Anuluj</button></a><br>
+  <a class="goBackA" href="/class/all"><button class="goBack"><<<</button></a><br>
 
   <form action="/class/update/${schoolClass.id}" method="post">
     <input type="text" name="name" value="${schoolClass.name}">
     <select size="10" name="tutorId">
       <c:forEach var="teacher" items="${teachers}">
-        <option value="${teacher.id}"> ${teacher.id}: ${teacher.firstName} ${teacher.lastName}</option>
+        <option <c:if test="${schoolClass.tutor.id == teacher.id}">selected </c:if>value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
       </c:forEach>
     </select>
     <input type="submit">

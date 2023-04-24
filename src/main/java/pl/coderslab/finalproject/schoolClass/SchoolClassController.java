@@ -77,11 +77,22 @@ public class SchoolClassController {
         return "redirect:all";
     }
     //bartek
-    @GetMapping("/manage/{id}")
-    public String manageClass(@PathVariable long id, HttpServletRequest request){
+    @GetMapping("/update/{id}")
+    public String updateClass(@PathVariable Long id, HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         session.setAttribute("classId",id);
-        return "class/manage";
+        model.addAttribute("schoolClass", schoolClassRepository.getById(id));
+        model.addAttribute("teachers", teacherRepository.findAll());
+        return "class/update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateClass(@PathVariable Long id, HttpServletRequest request){
+        SchoolClass schoolClass = schoolClassRepository.getById(id);
+
+        schoolClass.setName(request.getParameter("name"));
+        schoolClassRepository.save(schoolClass);
+        return "redirect:/class/all";
     }
 
 }

@@ -38,7 +38,7 @@
         <tr>
           <td>${subject.id}</td>
           <td>${subject.name}</td>
-          <td><a href="/subject/update/${subject.id}">Zarządzaj</a>&nbsp;&nbsp;&nbsp;<a href="/subject/delete/${subject.id}">Usuń</a></td>
+          <td><a href="/subject/update/${subject.id}">Zarządzaj</a><a href="/subject/delete/${subject.id}">Usuń</a></td>
         </tr>
       </c:forEach>
       </tbody>

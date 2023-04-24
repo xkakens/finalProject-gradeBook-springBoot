@@ -39,7 +39,7 @@
                     <td>${schoolClass.id}</td>
                     <td>${schoolClass.name}</td>
                     <td>${schoolClass.tutor.firstName} ${schoolClass.tutor.lastName} (${schoolClass.tutor.id})</td>
-                    <td><a href="/class/update/${schoolClass.id}">Zarządzaj</a>&nbsp;&nbsp;&nbsp;<a href="/class/studentlist/${schoolClass.id}">Pokaż
+                    <td><a href="/class/update/${schoolClass.id}">Zarządzaj</a><a href="/class/studentlist/${schoolClass.id}">Pokaż
                         listę uczniów</a></td>
                 </tr>
             </c:forEach>

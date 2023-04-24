@@ -57,8 +57,13 @@ a{
     margin: 0;
 }
 
+td > a {
+    margin-right: 7px;
+}
+
 .goBackA{
     text-decoration: none;
+    margin-right: 0;
 }
 
 input{

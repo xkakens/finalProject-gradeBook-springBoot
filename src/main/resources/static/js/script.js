@@ -1,6 +1,6 @@
 //bartek
-let nextTeacherId = 2;
-const teacherListDiv = document.getElementById("teacherList");
+const teacherListDiv = document.getElementById("teacherList")
+let nextTeacherId = document.getElementById("hiddenNumber").value;
 function addTeacher(){
     const teacherDiv = document.createElement("div");
     teacherDiv.setAttribute("id",`div${nextTeacherId}`);
@@ -24,7 +24,9 @@ function addTeacher(){
     console.log(nextTeacherId);
 }
 
-function removeTeacher(x){
-    document.getElementById(`div${nextTeacherId-1}`).remove();
-    nextTeacherId--;
+function removeTeacher(){
+    if(nextTeacherId>2) {
+        document.getElementById(`div${nextTeacherId - 1}`).remove();
+        nextTeacherId--;
+    }
 }

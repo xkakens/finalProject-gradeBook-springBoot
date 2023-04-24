@@ -139,4 +139,22 @@ public class StudentController {
 
     }
 
+    //bartek
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable long id, Model model){
+        Student student = studentRepository.getById(id);
+        model.addAttribute("student",student);
+        List<Mark> marks = markRepository.findAllByStudent(student);
+        if(marks.size()>0){
+            return "student/removeMarksNotification";
+        } else {
+            return "student/delete";
+        }
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable long id, HttpServletRequest request){
+        studentRepository.deleteById(id);
+        return "redirect:/class/studentlist/"+request.getSession().getAttribute("classId");
+    }
 }

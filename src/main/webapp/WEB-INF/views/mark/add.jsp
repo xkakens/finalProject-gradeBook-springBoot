@@ -14,6 +14,7 @@
 </head>
 <body>
 <div class="container">
+    <a href="/class/studentlist/${sessionScope.classId}" class="goBackA"><button class="goBack"><<<</button></a>
     <h1> Dodaj nową ocenę </h1>
     <br>
     <form action="/mark/add" method="post">

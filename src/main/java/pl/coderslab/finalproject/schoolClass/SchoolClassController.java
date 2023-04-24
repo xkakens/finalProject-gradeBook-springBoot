@@ -94,5 +94,22 @@ public class SchoolClassController {
         schoolClassRepository.save(schoolClass);
         return "redirect:/class/all";
     }
-
+    //bartek
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable long id, Model model){
+        SchoolClass schoolClass = schoolClassRepository.getById(id);
+        model.addAttribute("schoolClass",schoolClass);
+        List<Student> students = studentRepository.findStudentsBySchoolClassId(id);
+        if(students.size()>0) {
+            return "class/removeStudentsNotification";
+        } else {
+            return "class/delete";
+        }
+    }
+    //bartek
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable long id){
+        schoolClassRepository.deleteById(id);
+        return "redirect:/class/all";
+    }
 }

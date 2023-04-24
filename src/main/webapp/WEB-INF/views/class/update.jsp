@@ -9,13 +9,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title> Modyfikacja klasy </title>
+  <title> Zarządzanie klasą </title>
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 <div class="container">
   <a class="goBackA" href="/class/all"><button class="goBack"><<<</button></a><br>
-
+  <br>
+  <a class="goBackA" href="/class/delete/${schoolClass.id}"><button class="goBack">Usuń klasę</button></a>
+  <h2>Edycja danych klasy</h2>
   <form action="/class/update/${schoolClass.id}" method="post">
     <input type="text" name="name" value="${schoolClass.name}">
     <select size="10" name="tutorId">

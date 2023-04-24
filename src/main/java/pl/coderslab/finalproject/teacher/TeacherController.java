@@ -56,6 +56,7 @@ public class TeacherController {
         return "teacher/subjectlist";
     }
 
+    //bartek
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable long id, Model model){
         model.addAttribute("id",id);
@@ -66,7 +67,7 @@ public class TeacherController {
         }
         return "teacher/delete";
     }
-
+    //bartek
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable long id){
         for(Subject subject : subjectRepository.findSubjectsByTeachers_id(id)){

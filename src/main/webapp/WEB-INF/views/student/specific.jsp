@@ -20,12 +20,16 @@
     <h1>${student.firstName} ${student.lastName}</h1>
     <h3>Klasa: ${schoolClass.name}</h3>
     <h3> Dane rodzica 1: </h3>
-    <h4> Imię: ${student.firstParent.firstName} Nazwisko: ${student.firstParent.lastName} Numer telefonu: ${student.firstParent.phoneNumber}</h4>
+    <h4> ${student.firstParent.firstName} ${student.firstParent.lastName}<br>Numer telefonu: ${student.firstParent.phoneNumber}</h4>
     <h3> Dane rodzica 2: </h3>
-    <h4> Imię: ${student.secondParent.firstName} Nazwisko: ${student.secondParent.lastName} Numer telefonu: ${student.secondParent.phoneNumber}</h4>
+    <h4> ${student.secondParent.firstName} ${student.secondParent.lastName}<br>Numer telefonu: ${student.secondParent.phoneNumber}</h4>
     <a  class="goBackA" href="marks/${student.id}"> <button class="goBack"> Lista ocen </button> </a>
     <a href="/student/update/${student.id}">
         <button class="goBack">Edycja danych ucznia</button>
+    </a>
+    <br><br>
+    <a href="/student/delete/${student.id}" class="goBackA">
+        <button class="goBack">Usuń ucznia</button>
     </a>
 </div>
 </body>

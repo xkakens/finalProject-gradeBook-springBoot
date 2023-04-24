@@ -48,13 +48,29 @@ public class MarkController {
         model.addAttribute("marks", marks);
         return "redirect:/student/marks/" + session.getAttribute("studentId");
     }
+    //bartek
 
-    @RequestMapping ("/remove/{markId}")
-    public String removeMark(HttpServletRequest request, @PathVariable Long markId){
-        HttpSession session = request.getSession();
-        markRepository.deleteById(markId);
-        return "redirect:/student/marks/" + session.getAttribute("studentId");
+    @GetMapping("/delete/{markId}")
+    public String delete(@PathVariable long markId, Model model){
+        Mark mark = markRepository.getById(markId);
+        model.addAttribute("mark",mark);
+        return "mark/delete";
     }
+
+    @PostMapping("/delete/{markId}")
+    public String delete(@PathVariable long markId){
+        Long studentId = markRepository.getById(markId).getStudent().getId();
+        markRepository.deleteById(markId);
+        return "redirect:/student/marks/" + studentId;
+    }
+
+    //poczatkowa wersja michala
+//    @RequestMapping ("/remove/{markId}")
+//    public String removeMark(HttpServletRequest request, @PathVariable Long markId){
+//        HttpSession session = request.getSession();
+//        markRepository.deleteById(markId);
+//        return "redirect:/student/marks/" + session.getAttribute("studentId");
+//    }
 
     @GetMapping("/update/{id}")
     public String updateMark(HttpServletRequest request, @PathVariable Long id, Model model){

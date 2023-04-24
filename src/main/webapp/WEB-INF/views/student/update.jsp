@@ -28,7 +28,7 @@
         <br>
         <select size="10" name="classId">
             <c:forEach var="schoolClass" items="${classes}">
-                <option value="${schoolClass.id}"> ${schoolClass.id}: ${schoolClass.name}</option>
+                <option <c:if test="${student.schoolClass.id == schoolClass.id}">selected </c:if>value="${schoolClass.id}"> ${schoolClass.id}: ${schoolClass.name}</option>
             </c:forEach>
         </select>
         <input type="submit" value="Zapisz">

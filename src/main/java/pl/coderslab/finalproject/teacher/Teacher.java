@@ -5,6 +5,8 @@ import lombok.Setter;
 import pl.coderslab.finalproject.subject.Subject;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 
@@ -16,6 +18,10 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    @Size(min=2, max=15)
     private String firstName;
+    @NotNull
+    @Size(min=2, max=20)
     private String lastName;
 }

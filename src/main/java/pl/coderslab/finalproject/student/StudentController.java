@@ -1,7 +1,9 @@
 package pl.coderslab.finalproject.student;
 
+import org.aspectj.asm.IModelFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.finalproject.mark.MarkRepository;
 import pl.coderslab.finalproject.parent.Parent;
@@ -14,6 +16,7 @@ import pl.coderslab.finalproject.subject.SubjectRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -68,8 +71,13 @@ public class StudentController {
     }
     //michał, na koncu poprawki bartek
     @PostMapping("/add")
-    public String addStudent(HttpServletRequest request){
+    public String addStudentPost(HttpServletRequest request, Model model,
+                                 @Valid @ModelAttribute Student checkStudent, BindingResult result){
         HttpSession session = request.getSession();
+        if(result.hasErrors()){
+            model.addAttribute("path", "/add");
+            return "wrongData";
+        }
         Student student = new Student();
         student.setFirstName(request.getParameter("firstName"));
         student.setLastName(request.getParameter("lastName"));
@@ -124,8 +132,12 @@ public class StudentController {
 
     //50/50
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id,HttpServletRequest request){
+    public String update(@PathVariable Long id, HttpServletRequest request, Model model,
+                         @Valid @ModelAttribute Student checkStudent, BindingResult result){
         HttpSession session = request.getSession();
+        if(result.hasErrors()){
+            model.addAttribute("path", "/update/" + id);
+        }
         Long classId = Long.parseLong(session.getAttribute("classId").toString());
         Student s = studentRepository.getById(id);
         s.setFirstName(request.getParameter("firstName"));
@@ -141,7 +153,7 @@ public class StudentController {
         Student s = studentRepository.getById(id);
         List<Mark> marks = markRepository.findAllByStudent(s);
         marks.sort(Comparator.comparing(Mark::getSubject, Comparator.comparing(Subject::getName)));
-        model.addAttribute("student",s);
+        model.addAttribute("student", s);
         model.addAttribute("marks", marks);
         model.addAttribute("subjects",subjectRepository.findAll());
         List<Integer> numberOfMarks = new ArrayList<>();

@@ -2,6 +2,7 @@ package pl.coderslab.finalproject.schoolClass;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.finalproject.student.Student;
 import pl.coderslab.finalproject.student.StudentRepository;
@@ -12,6 +13,7 @@ import pl.coderslab.finalproject.teacher.TeacherRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,9 +89,15 @@ public class SchoolClassController {
 
     //bartek
     @PostMapping("/add")
-    public String addClass(HttpServletRequest request) {
+    public String addClass(HttpServletRequest request, Model model,
+                           @Valid @ModelAttribute SchoolClass checkClass, BindingResult result) {
+
         SchoolClass schoolClass = new SchoolClass();
         schoolClass.setName(request.getParameter("name"));
+        if(result.hasErrors() || request.getParameter("tutorId") == null){
+            model.addAttribute("path", "/add");
+            return "wrongData";
+        }
         schoolClass.setTutor(teacherRepository.findTeacherById(Long.parseLong(request.getParameter("tutorId"))));
         int c = 0;
         List<Subject> subjects = new ArrayList<>();
@@ -101,6 +109,10 @@ public class SchoolClassController {
             c++;
         }
         schoolClass.setSubjects(subjects);
+        if(schoolClass.getSubjects().size() == 0){
+            model.addAttribute("path", "/add");
+            return "wrongData";
+        }
         schoolClassRepository.save(schoolClass);
         return "redirect:all";
     }
@@ -120,8 +132,13 @@ public class SchoolClassController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateClass(@PathVariable Long id, HttpServletRequest request){
+    public String updateClassPost(@PathVariable Long id, HttpServletRequest request,
+                                  @Valid @ModelAttribute SchoolClass checkClass, BindingResult result,  Model model){
         SchoolClass schoolClass = schoolClassRepository.getById(id);
+        if(result.hasErrors() || request.getParameter("tutorId") == null){
+            model.addAttribute("path", "/add");
+            return "wrongData";
+        }
         schoolClass.setTutor(teacherRepository.getById(Long.parseLong(request.getParameter("tutorId"))));
         schoolClass.setName(request.getParameter("name"));
         int c = 0;
@@ -134,6 +151,10 @@ public class SchoolClassController {
             c++;
         }
         schoolClass.setSubjects(subjects);
+        if(schoolClass.getSubjects().size() == 0){
+            model.addAttribute("path", "/add");
+            return "wrongData";
+        }
         schoolClassRepository.save(schoolClass);
         return "redirect:/class/all";
     }

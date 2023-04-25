@@ -93,8 +93,13 @@ public class SchoolClassController {
     public String updateClass(@PathVariable Long id, HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         session.setAttribute("classId",id);
-        model.addAttribute("schoolClass", schoolClassRepository.getById(id));
+        SchoolClass schoolClass = schoolClassRepository.getById(id);
+        List<Subject> subjects = subjectRepository.findAll();
+        List<Subject> ext = schoolClass.getSubjects();
+        model.addAttribute("schoolClass", schoolClass);
         model.addAttribute("teachers", teacherRepository.findAll());
+        model.addAttribute("subjects",subjects);
+        model.addAttribute("ext",ext);
         return "class/update";
     }
 

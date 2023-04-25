@@ -2,10 +2,8 @@ package pl.coderslab.finalproject.subject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.finalproject.mark.Mark;
 import pl.coderslab.finalproject.mark.MarkRepository;
 import pl.coderslab.finalproject.schoolClass.SchoolClass;
@@ -14,6 +12,7 @@ import pl.coderslab.finalproject.teacher.Teacher;
 import pl.coderslab.finalproject.teacher.TeacherRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 //bartek
@@ -46,7 +45,12 @@ public class SubjectController {
     }
 
     @PostMapping("/add")
-    public String addSubject(HttpServletRequest request){
+    public String addSubject(HttpServletRequest request, Model model,
+                             @Valid @ModelAttribute Subject checkSubject, BindingResult result){
+        if(result.hasErrors()){
+            model.addAttribute("path", "/path");
+            return "wrongData";
+        }
         List<Teacher> teachers = new ArrayList<>();
         for(int i = 1; true; i++){
             String x = request.getParameter("teacher" + i);
@@ -76,7 +80,12 @@ public class SubjectController {
     }
 
     @PostMapping("/update/{id}")
-    public String manage(@PathVariable long id, HttpServletRequest request){
+    public String manage(@PathVariable Long id, HttpServletRequest request,
+                         @Valid @ModelAttribute Subject checkSubject, BindingResult result, Model model){
+        if(result.hasErrors()){
+            model.addAttribute("path", "/update/" + id);
+            return "wrongData";
+        }
         List<Teacher> teachers = new ArrayList<>();
         for(int i = 1; i < 5+1; i++){
             String x = request.getParameter("teacher" + i);
@@ -105,7 +114,7 @@ public class SubjectController {
     }
 
     @PostMapping("/delete/{id}")
-    public String delete(@PathVariable long id){
+    public String delete(@PathVariable Long id){
         List<Mark> relatedMarks = markRepository.findMarksBySubjectId(id);
         for(Mark mark : relatedMarks){
             markRepository.delete(mark);

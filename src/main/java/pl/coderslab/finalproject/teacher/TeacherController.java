@@ -2,16 +2,15 @@ package pl.coderslab.finalproject.teacher;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.finalproject.schoolClass.SchoolClass;
 import pl.coderslab.finalproject.schoolClass.SchoolClassRepository;
 import pl.coderslab.finalproject.subject.Subject;
 import pl.coderslab.finalproject.subject.SubjectRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 //bartek
 @RequestMapping("/teacher")
@@ -38,7 +37,12 @@ public class TeacherController {
     }
 
     @PostMapping("/add")
-    public String addTeacher(HttpServletRequest request){
+    public String addTeacher(HttpServletRequest request, Model model,
+                             @Valid @ModelAttribute Teacher checkTeacher, BindingResult result){
+        if(result.hasErrors()){
+            model.addAttribute("path", "/add");
+            return "wrongData";
+        }
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         Teacher teacher = new Teacher();

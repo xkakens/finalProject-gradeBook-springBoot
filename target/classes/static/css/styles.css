@@ -1,3 +1,7 @@
+:root{
+    --mainColor: rgba(0, 108, 255, 0.6);
+}
+
 body{
     font-family: "Corbel", serif !important;
     background-image: url("https://scontent.xx.fbcdn.net/v/t1.15752-9/341097194_1286142925308642_3652877201242126564_n.png?_nc_cat=109&ccb=1-7&_nc_sid=aee45a&_nc_ohc=2feZqOFmwpsAX8AfaVi&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdTJKMpuoakMe_E7406uBsweBHLR5md80txfc_HzF-uH6A&oe=6468B7E3");
@@ -7,12 +11,44 @@ body{
     background-size: 100vw 120vh;
     background-attachment: fixed;
     overflow: hidden;
+    box-shadow: inset 0 0 0 2000px var(--mainColor);
+}
+
+
+.markDiv{
+    width: 100px;
+    height: 40px;
+    font-size: 24px;
+    background: #eeeeee;
+    color: #000000;
+    font-weight: 900;
+    /*box-shadow: black 0px 0px 3px;*/
+}
+
+.bigMarkDiv{
+    float: left;
+    margin-left: 10px;
+}
+
+.subjectMark{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 200px;
+    background: white;
+    box-shadow: black 0px 0px 3px;
+}
+
+.markImportance{
+    font-size: 14px;
+    border-left: 1px solid black;
+    padding-left: 5px;
 }
 
 .removeTeacher{
     min-width: 100px;
     height: 35px;
-    background: #ffbb68;
+    background: var(--mainColor);
     color: white;
     font-weight: 900;
     text-align: center;
@@ -21,7 +57,8 @@ body{
 }
 
 h2{
-    margin-bottom: 0px;
+    margin-bottom: 0;
+    margin-top: 20px;
 }
 
 ul{
@@ -72,7 +109,7 @@ input{
 
 input[type="text"],
 input[type="number"]{
-    background: #f8faff;
+    background: #f4fbff;
     width: 300px;
     height: 50px;
     border: 1px solid #a8a8a8;
@@ -108,7 +145,7 @@ form{
 .goBack{
     min-width: 150px;
     height: 50px;
-    background: #ffbb68;
+    background: var(--mainColor);
     color: white;
     font-weight: 900;
     text-align: center;

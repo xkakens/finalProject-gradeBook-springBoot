@@ -12,8 +12,8 @@ body{
 .removeTeacher{
     min-width: 100px;
     height: 35px;
-    background: #ffbb68;
-    color: white;
+    background: #DDD0C8;
+    color: #323232;
     font-weight: 900;
     text-align: center;
     border: 0;
@@ -28,7 +28,7 @@ ul{
     width: 300px;
     margin-left: auto;
     margin-right: auto;
-    background: #f1f1f1;
+    background: #CD9C8A;
     list-style-type: none;
     text-align: left;
     padding: 10px;
@@ -44,7 +44,7 @@ table{
     width: 800px;
     margin-left: auto;
     margin-right: auto;
-    background: #fffaf6;
+    background: #DDD0C8;
     box-shadow: black 0 0 50px;
     height: 100vh;
     text-align: center;
@@ -72,10 +72,10 @@ input{
 
 input[type="text"],
 input[type="number"]{
-    background: #f8faff;
+    background: #CD9C8A;
     width: 300px;
     height: 50px;
-    border: 1px solid #a8a8a8;
+    border: 1px solid #323232;
     border-radius: 10px;
     font-size: 15px;
     padding-left: 10px;
@@ -89,7 +89,7 @@ input[type="submit"]{
     text-align: center;
     font-size: 15px;
     color: black;
-    border: 1px solid #a8a8a8;
+    border: 1px solid #323232;
     border-radius: 10px;
 }
 
@@ -108,8 +108,8 @@ form{
 .goBack{
     min-width: 150px;
     height: 50px;
-    background: #ffbb68;
-    color: white;
+    background: #DDD0C8;
+    color: #323232;
     font-weight: 900;
     text-align: center;
     border: 0;
@@ -122,14 +122,14 @@ form{
 }
 
 td, th{
-    border: 1px solid #e7e7e7;
+    border: 1px solid #323232;
     text-align: left;
     padding: 3px;
     min-width: 100px;
 }
 
 th{
-    border: 1px solid black;
+    border: 1px solid #323232;
 }
 
 select{
@@ -137,7 +137,7 @@ select{
     width: 275px;
     padding: 10px;
     border-radius: 7px;
-    background: #f8f4f2;
+    background: #CD9C8A;
 
 }
 
@@ -148,13 +148,13 @@ option{
 
 option:hover{
     cursor:pointer;
-    background: #fff8db;
+    background: #CD9C8A;
 }
 
 .deleteNo, .deleteYes{
     min-width: 100px;
     height: 30px;
-    color: white;
+    color: #CD9C8A;
     font-weight: 900;
     text-align: center;
     border: 0;
@@ -167,4 +167,31 @@ option:hover{
 
 .deleteYes{
     background: red;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #323232;
+    color: #CD9C8A;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }

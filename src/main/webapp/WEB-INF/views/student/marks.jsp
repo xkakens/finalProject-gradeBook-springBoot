@@ -21,16 +21,20 @@
 <table>
   <thead>
   <tr>
-    <th> ID </th>
     <th> Ocena </th>
+    <th> Opis </th>
     <th> Przedmiot</th>
+    <th> Waga</th>
     <th> Akcje </th>
   </tr>
   </thead>
   <tbody>
-  <c:forEach var="mark" items="${marks}">
+  <c:forEach varStatus="loop" var="mark" items="${marks}">
     <tr>
       <td>${mark.value}</td>
+      <td><div class="tooltip">Opis
+        <span class="tooltiptext">${mark.description}</span>
+      </div></td>
       <td>${mark.subject.name}</td>
       <td>${mark.importance}</td>
       <td><a href="/mark/update/${mark.id}">Zmień</a>&nbsp;&nbsp;&nbsp;<a href="/mark/delete/${mark.id}">Usuń</a></td>

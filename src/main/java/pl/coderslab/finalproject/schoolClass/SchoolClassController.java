@@ -43,6 +43,24 @@ public class SchoolClassController {
     @GetMapping("/all")
     public String allClasses(Model model){
         List<SchoolClass> classes = schoolClassRepository.findAll();
+        List<String> extStrings = new ArrayList<>();
+        StringBuilder str = new StringBuilder();
+        int size;
+        for(SchoolClass schoolClass : classes){
+            size = schoolClass.getSubjects().size();
+            int i = 0;
+            for(Subject subject : schoolClass.getSubjects()){
+                String[] arr = subject.getName().split(" ");
+                str.append(arr[arr.length-1].toLowerCase(), 0, 3);
+                if(i<size-1){
+                    str.append("-");
+                }
+                i++;
+            }
+            extStrings.add(str.toString());
+            str.setLength(0);
+        }
+        model.addAttribute("ext",extStrings);
         model.addAttribute("classes", classes);
         return "class/all";
     }
@@ -75,14 +93,12 @@ public class SchoolClassController {
         schoolClass.setTutor(teacherRepository.findTeacherById(Long.parseLong(request.getParameter("tutorId"))));
         int c = 0;
         List<Subject> subjects = new ArrayList<>();
-        schoolClass.setSubjects(subjects);
         for(Subject s : subjectRepository.findAll()){
             String str = request.getParameter("subjectName" + c);
             if(str != null){
                 subjects.add(subjectRepository.findSubjectByName(str));
             }
             c++;
-
         }
         schoolClass.setSubjects(subjects);
         schoolClassRepository.save(schoolClass);
@@ -108,7 +124,16 @@ public class SchoolClassController {
         SchoolClass schoolClass = schoolClassRepository.getById(id);
         schoolClass.setTutor(teacherRepository.getById(Long.parseLong(request.getParameter("tutorId"))));
         schoolClass.setName(request.getParameter("name"));
-
+        int c = 0;
+        List<Subject> subjects = new ArrayList<>();
+        for(Subject s : subjectRepository.findAll()){
+            String str = request.getParameter("subjectName" + c);
+            if(str != null){
+                subjects.add(subjectRepository.findSubjectByName(str));
+            }
+            c++;
+        }
+        schoolClass.setSubjects(subjects);
         schoolClassRepository.save(schoolClass);
         return "redirect:/class/all";
     }

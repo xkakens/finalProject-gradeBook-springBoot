@@ -32,7 +32,7 @@
                 <option value="${teacher.id}"> ${teacher.id}: ${teacher.firstName} ${teacher.lastName}</option>
             </c:forEach>
         </select>
-        <br> <br>
+        <br><br>
         <fieldset>
             <legend>Wybierz przedmioty</legend>
             <c:forEach varStatus="loop" var="subject" items="${subjects}">

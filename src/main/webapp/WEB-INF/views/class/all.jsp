@@ -41,10 +41,7 @@
                     <td>${schoolClass.id}</td>
                     <td>${schoolClass.name}</td>
                     <td>${schoolClass.tutor.firstName} ${schoolClass.tutor.lastName} (${schoolClass.tutor.id})</td>
-                    <td><c:forEach var="subject" items="${schoolClass.subjects}" varStatus="loop">
-                        ${fn:substring(subject.name.toLowerCase(),0,3)}
-                        <c:if test="${loop.index < schoolClass.subjects.size() - 1}">-</c:if>
-                    </c:forEach></td>
+                    <td>${ext[loop.index]}</td>
                     <td><a href="/class/update/${schoolClass.id}">Zarządzaj</a><a href="/class/studentlist/${schoolClass.id}">Pokaż
                         listę uczniów</a></td>
                 </tr>

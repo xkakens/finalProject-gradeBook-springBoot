@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 
@@ -35,14 +36,15 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="schoolClass" items="${classes}">
+            <c:forEach var="schoolClass" items="${classes}" varStatus="loop">
                 <tr>
                     <td>${schoolClass.id}</td>
                     <td>${schoolClass.name}</td>
                     <td>${schoolClass.tutor.firstName} ${schoolClass.tutor.lastName} (${schoolClass.tutor.id})</td>
-                    <td><c:forEach var="subject" items="${schoolClass.subjects}">
-                        ${subject.name}
-                    </c:forEach> </td>
+                    <td><c:forEach var="subject" items="${schoolClass.subjects}" varStatus="loop">
+                        ${fn:substring(subject.name.toLowerCase(),0,3)}
+                        <c:if test="${loop.index < schoolClass.subjects.size() - 1}">-</c:if>
+                    </c:forEach></td>
                     <td><a href="/class/update/${schoolClass.id}">Zarządzaj</a><a href="/class/studentlist/${schoolClass.id}">Pokaż
                         listę uczniów</a></td>
                 </tr>

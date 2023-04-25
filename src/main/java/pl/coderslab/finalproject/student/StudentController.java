@@ -10,10 +10,12 @@ import pl.coderslab.finalproject.schoolClass.SchoolClass;
 import pl.coderslab.finalproject.mark.Mark;
 import pl.coderslab.finalproject.schoolClass.SchoolClassRepository;
 import pl.coderslab.finalproject.subject.Subject;
+import pl.coderslab.finalproject.subject.SubjectRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -25,12 +27,18 @@ public class StudentController {
     private final SchoolClassRepository schoolClassRepository;
     private final MarkRepository markRepository;
     private final ParentRepository parentRepository;
+    private final SubjectRepository subjectRepository;
 
-    public StudentController(StudentRepository studentRepository, SchoolClassRepository schoolClassRepository, MarkRepository markRepository, ParentRepository parentRepository) {
+    public StudentController(StudentRepository studentRepository,
+                             SchoolClassRepository schoolClassRepository,
+                             MarkRepository markRepository,
+                             ParentRepository parentRepository,
+                             SubjectRepository subjectRepository) {
         this.studentRepository = studentRepository;
         this.schoolClassRepository = schoolClassRepository;
         this.markRepository = markRepository;
         this.parentRepository = parentRepository;
+        this.subjectRepository = subjectRepository;
     }
 
     //michał
@@ -130,11 +138,17 @@ public class StudentController {
     //michał
     @GetMapping("/marks/{id}")
     public String studentMarks(@PathVariable Long id, Model model){
-        List<Mark> marks = markRepository.findAllByStudent(studentRepository.getById(id));
-        marks.sort(Comparator.comparing(Mark::getSubject, Comparator.comparing(Subject::getName)));
         Student s = studentRepository.getById(id);
+        List<Mark> marks = markRepository.findAllByStudent(s);
+        marks.sort(Comparator.comparing(Mark::getSubject, Comparator.comparing(Subject::getName)));
         model.addAttribute("student",s);
         model.addAttribute("marks", marks);
+        model.addAttribute("subjects",subjectRepository.findAll());
+        List<Integer> numberOfMarks = new ArrayList<>();
+        for(Subject ss : subjectRepository.findAll()){
+            numberOfMarks.add(markRepository.findMarksByStudentIdAndSubjectId(id,ss.getId()).size());
+        }
+        model.addAttribute("numberOfMarks",numberOfMarks);
         return "student/marks";
 
     }

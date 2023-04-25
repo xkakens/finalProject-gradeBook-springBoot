@@ -25,11 +25,18 @@
         <option <c:if test="${schoolClass.tutor.id == teacher.id}">selected </c:if>value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
       </c:forEach>
     </select>
+    <br> <br>
+    <fieldset>
+      <legend>Wybierz przedmioty</legend>
+      <c:forEach varStatus="loop" var="subject" items="${subjects}">
+        <div>
+          <input <c:forEach var="extT" items="${ext}"><c:if test="${extT.name==subject.name}">checked</c:if></c:forEach> type="checkbox" name="subjectName${loop.index}" value="${subject.name}">
+          <label for="${subject.name}"> ${subject.name}</label>
+        </div>
+      </c:forEach>
+    </fieldset>
     <input type="submit">
   </form>
-  <c:forEach var="subject" items="${subjects}">
-    <h1> ${subject.name}</h1>
-  </c:forEach>
 </div>
 </body>
 </html>

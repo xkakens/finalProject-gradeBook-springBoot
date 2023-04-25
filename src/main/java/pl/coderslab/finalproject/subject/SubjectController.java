@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.finalproject.mark.Mark;
+import pl.coderslab.finalproject.mark.MarkRepository;
+import pl.coderslab.finalproject.schoolClass.SchoolClass;
+import pl.coderslab.finalproject.schoolClass.SchoolClassRepository;
 import pl.coderslab.finalproject.teacher.Teacher;
 import pl.coderslab.finalproject.teacher.TeacherRepository;
 
@@ -18,9 +22,13 @@ import java.util.List;
 public class SubjectController {
     private final SubjectRepository subjectRepository;
     private final TeacherRepository teacherRepository;
-    public SubjectController(SubjectRepository subjectRepository, TeacherRepository teacherRepository){
+    private final MarkRepository markRepository;
+    private final SchoolClassRepository schoolClassRepository;
+    public SubjectController(SubjectRepository subjectRepository, TeacherRepository teacherRepository, MarkRepository markRepository, SchoolClassRepository schoolClassRepository){
         this.subjectRepository = subjectRepository;
         this.teacherRepository = teacherRepository;
+        this.markRepository = markRepository;
+        this.schoolClassRepository = schoolClassRepository;
     }
 
     @GetMapping("/all")
@@ -83,6 +91,26 @@ public class SubjectController {
         subject.setTeachers(teachers);
         subject.setName(name);
         subjectRepository.save(subject);
+        return "redirect:/subject/all";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable long id, Model model){
+        model.addAttribute("subject",subjectRepository.getById(id));
+        List<SchoolClass> schoolClasses = schoolClassRepository.findSchoolClassesBySubjects_id(id);
+        if(schoolClasses.size()>0){
+            return "subject/removeClassesNotification";
+        }
+        return "subject/delete";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable long id){
+        List<Mark> relatedMarks = markRepository.findMarksBySubjectId(id);
+        for(Mark mark : relatedMarks){
+            markRepository.delete(mark);
+        }
+        subjectRepository.deleteById(id);
         return "redirect:/subject/all";
     }
 }

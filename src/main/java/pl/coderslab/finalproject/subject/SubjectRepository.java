@@ -6,6 +6,6 @@ import java.util.List;
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
     Subject findDistinctByName(String name);
     List<Subject> findSubjectsByTeachers_id(Long id);
-
+    Subject findSubjectByName(String name);
 
 }

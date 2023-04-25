@@ -30,7 +30,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nazwa</th>
                 <th scope="col">Wychowawca</th>
-                <th scope="col">Przedmioty</th>
+                <th scope="col">Rozszerzane przedmioty</th>
                 <th scope="col">Akcje</th>
             </tr>
             </thead>

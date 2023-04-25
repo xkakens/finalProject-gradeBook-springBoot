@@ -23,7 +23,11 @@
     <form action="/class/add" method="post">
         <br>Nazwa klasy</br>
         <input type="text" name="name" id="name"><br>
+        <br>
+        <a href="/teacher/add"> Nowy nauczyciel... </a>
+        <br>
         <select size="10" name="tutorId">
+
             <c:forEach var="teacher" items="${teachers}">
                 <option value="${teacher.id}"> ${teacher.id}: ${teacher.firstName} ${teacher.lastName}</option>
             </c:forEach>

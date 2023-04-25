@@ -79,7 +79,7 @@ public class SchoolClassController {
         for(Subject s : subjectRepository.findAll()){
             String str = request.getParameter("subjectName" + c);
             if(str != null){
-                subjects.add(subjectRepository.findDistinctByName(str));
+                subjects.add(subjectRepository.findSubjectByName(str));
             }
             c++;
 
@@ -108,6 +108,7 @@ public class SchoolClassController {
         SchoolClass schoolClass = schoolClassRepository.getById(id);
         schoolClass.setTutor(teacherRepository.getById(Long.parseLong(request.getParameter("tutorId"))));
         schoolClass.setName(request.getParameter("name"));
+
         schoolClassRepository.save(schoolClass);
         return "redirect:/class/all";
     }

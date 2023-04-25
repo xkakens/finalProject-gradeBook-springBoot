@@ -18,23 +18,30 @@
 <h1 class="header">Oceny ucznia ${student.firstName} ${student.lastName}</h1>
   <a href="/mark/add/${student.id}"><button class="goBack">Dodaj ocenę</button></a>
   <br><br><br>
-  <c:forEach var="subject" items="${subjects}" varStatus="loop">
-    <c:if test="${numberOfMarks[loop.index]>0}">
-      <div class="subjectMark">
-      <h2>${subject.name}</h2><br>
-        <c:forEach var="mark" items="${marks}">
-          <c:if test="${mark.subject==subject}">
-            <div class="bigMarkDiv">
-              <div class="markDiv">
-                  ${mark.value}
-              </div>
-              <br>
-            </div>
-          </c:if>
-        </c:forEach>
-      </div>
-    </c:if>
+<table>
+  <thead>
+  <tr>
+    <th> Ocena </th>
+    <th> Opis </th>
+    <th> Przedmiot</th>
+    <th> Waga</th>
+    <th> Akcje </th>
+  </tr>
+  </thead>
+  <tbody>
+  <c:forEach varStatus="loop" var="mark" items="${marks}">
+    <tr>
+      <td>${mark.value}</td>
+      <td><div class="tooltip">Opis
+        <span class="tooltiptext">${mark.description}</span>
+      </div></td>
+      <td>${mark.subject.name}</td>
+      <td>${mark.importance}</td>
+      <td><a href="/mark/update/${mark.id}">Zmień</a>&nbsp;&nbsp;&nbsp;<a href="/mark/delete/${mark.id}">Usuń</a></td>
+    </tr>
   </c:forEach>
+  </tbody>
+</table>
 </div>
 </body>
 </html>

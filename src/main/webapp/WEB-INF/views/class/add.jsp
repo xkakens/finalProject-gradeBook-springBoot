@@ -14,10 +14,12 @@
 </head>
 <body>
 <div class="container">
-<a class="goBackA" href="/class/all"><button class="goBack"><<<</button></a>
-<br><br>
-<div class="header-title">
-</div>
+    <a class="goBackA" href="/class/all">
+        <button class="goBack"><<<</button>
+    </a>
+    <br><br>
+    <div class="header-title">
+    </div>
     <form action="/class/add" method="post">
         <br>Nazwa klasy</br>
         <input type="text" name="name" id="name"><br>
@@ -26,7 +28,17 @@
                 <option value="${teacher.id}"> ${teacher.id}: ${teacher.firstName} ${teacher.lastName}</option>
             </c:forEach>
         </select>
-        <input type="submit">
+        <br> <br>
+        <fieldset>
+            <legend>Wybierz przedmioty</legend>
+            <c:forEach varStatus="loop" var="subject" items="${subjects}">
+                <div>
+                    <input type="checkbox" name="subjectName${loop.index}" value="${subject.name}">
+                    <label for="${subject.name}"> ${subject.name}</label>
+                </div>
+            </c:forEach>
+        </fieldset>
+        <input type="submit" value="Dodaj">
     </form>
 </div>
 </body>

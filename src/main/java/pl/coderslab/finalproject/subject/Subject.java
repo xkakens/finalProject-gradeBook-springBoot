@@ -2,6 +2,7 @@ package pl.coderslab.finalproject.subject;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.finalproject.schoolClass.SchoolClass;
 import pl.coderslab.finalproject.teacher.Teacher;
 
 import javax.persistence.*;
@@ -18,4 +19,5 @@ public class Subject {
     private String name;
     @ManyToMany
     private List<Teacher> teachers;
+
 }

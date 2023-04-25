@@ -20,5 +20,5 @@ public class SchoolClass {
     @OneToOne
     private Teacher tutor;
     @ManyToMany
-    private List<Subject> subjectList;
+    private List<Subject> subjects;
 }

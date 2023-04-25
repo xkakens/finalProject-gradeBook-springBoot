@@ -27,6 +27,9 @@
     </select>
     <input type="submit">
   </form>
+  <c:forEach var="subject" items="${subjects}">
+    <h1> ${subject.name}</h1>
+  </c:forEach>
 </div>
 </body>
 </html>

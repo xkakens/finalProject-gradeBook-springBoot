@@ -22,7 +22,11 @@ body{
     background: #eeeeee;
     color: #000000;
     font-weight: 900;
+    line-height: 40px;
     /*box-shadow: black 0px 0px 3px;*/
+}
+.markDiv:hover{
+    cursor: pointer;
 }
 
 .bigMarkDiv{
@@ -204,4 +208,50 @@ option:hover{
 
 .deleteYes{
     background: red;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    min-width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 19px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -75px;
+
+
+    opacity: 0;
+    transition: opacity 0.7s;
+}
+
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    cursor: pointer;
 }

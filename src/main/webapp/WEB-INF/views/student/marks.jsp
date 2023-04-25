@@ -25,8 +25,13 @@
         <c:forEach var="mark" items="${marks}">
           <c:if test="${mark.subject==subject}">
             <div class="bigMarkDiv">
+              <div class="tooltip">
               <div class="markDiv">
+
+                <span class="tooltiptext">${mark.description}</span>
                   ${mark.value}
+
+              </div>
               </div>
               <br>
             </div>

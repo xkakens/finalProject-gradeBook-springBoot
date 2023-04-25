@@ -1,5 +1,6 @@
 package pl.coderslab.finalproject.schoolClass;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,14 +32,6 @@ public class SchoolClassController {
         this.subjectRepository = subjectRepository;
     }
 
-
-    //bartek
-    @RequestMapping("/list")
-    public String userHome(Model model){
-        List<SchoolClass> classes = schoolClassRepository.findAll();
-        model.addAttribute("classes",classes);
-        return "class/all";
-    }
     //michał
     @GetMapping("/all")
     public String allClasses(Model model){
@@ -118,7 +111,6 @@ public class SchoolClassController {
         model.addAttribute("ext",ext);
         return "class/update";
     }
-
     @PostMapping("/update/{id}")
     public String updateClass(@PathVariable Long id, HttpServletRequest request){
         SchoolClass schoolClass = schoolClassRepository.getById(id);
@@ -155,5 +147,4 @@ public class SchoolClassController {
         schoolClassRepository.deleteById(id);
         return "redirect:/class/all";
     }
-
 }

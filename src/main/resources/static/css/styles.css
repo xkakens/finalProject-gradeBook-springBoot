@@ -90,6 +90,7 @@ table{
     height: 100vh;
     text-align: center;
     overflow: scroll;
+    position: relative;
 }
 
 a{
@@ -111,8 +112,15 @@ input{
     margin-top: 10px;
 }
 
+.formLogout{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 input[type="text"],
-input[type="number"]{
+input[type="number"],
+input[type="password"]{
     background: #f4fbff;
     width: 300px;
     height: 50px;
@@ -123,7 +131,7 @@ input[type="number"]{
     font-weight: 100;
 }
 
-input[type="submit"]{
+input[type="submit"]:not(.fa){
     width: 200px;
     height: 50px;
     background: #eaeaea;
@@ -134,9 +142,27 @@ input[type="submit"]{
     border-radius: 10px;
 }
 
-input[type="submit"]:hover{
+input[type="submit"]:hover:not(.fa){
     box-shadow: black 0px 0px 3px;
     cursor: pointer;
+}
+
+.fa, .fa-id-badge{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 30px;
+    border-radius: 0px;
+    border: 0;
+    background: red;
+    color: white;
+    font-weight: 900;
+}
+
+.fa:hover{
+    cursor: pointer;
+    box-shadow: black 0px 0px 3px;
 }
 
 form{

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -6,16 +7,16 @@
   To change this template use File | Settings | File Templates.
   bartek
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
-    <script src="${pageContext.request.contextPath}/js/script.js" defer></script>
-    <title>Zmiana danych przedmiotu</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<jsp:include page="/WEB-INF/views/utils/header.jsp" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
+<script src="${pageContext.request.contextPath}/js/script.js" defer></script>
+<title>Zmiana danych przedmiotu</title>
 </head>
 <body>
 <div class="container">
+    <jsp:include page="/WEB-INF/views/utils/bodyHeader.jsp" />
     <a class="goBackA" href="/subject/all">
         <button class="goBack"><<<</button>
     </a>
@@ -34,7 +35,8 @@
                     <p style="font-size: 20px; font-weight: 900;" name="p2">${loop.index+1}. nauczyciel</p>
                     <select size="3" name="teacher${loop.index+1}" required>
                         <c:forEach var="teacher2" items="${teachers}">
-                            <option value="${teacher2.id}" <c:if test="${teacher2.id==teacher.id}">selected</c:if>> ${teacher2.id}: ${teacher2.firstName} ${teacher2.lastName}</option>
+                            <option value="${teacher2.id}"
+                                    <c:if test="${teacher2.id==teacher.id}">selected</c:if>> ${teacher2.id}: ${teacher2.firstName} ${teacher2.lastName}</option>
                         </c:forEach>
                     </select>
                 </div>

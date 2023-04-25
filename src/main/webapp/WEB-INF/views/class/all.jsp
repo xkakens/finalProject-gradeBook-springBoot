@@ -30,6 +30,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nazwa</th>
                 <th scope="col">Wychowawca</th>
+                <th scope="col">Przedmioty</th>
                 <th scope="col">Akcje</th>
             </tr>
             </thead>
@@ -39,6 +40,9 @@
                     <td>${schoolClass.id}</td>
                     <td>${schoolClass.name}</td>
                     <td>${schoolClass.tutor.firstName} ${schoolClass.tutor.lastName} (${schoolClass.tutor.id})</td>
+                    <td><c:forEach var="subject" items="${schoolClass.subjects}">
+                        ${subject.name}
+                    </c:forEach> </td>
                     <td><a href="/class/update/${schoolClass.id}">Zarządzaj</a><a href="/class/studentlist/${schoolClass.id}">Pokaż
                         listę uczniów</a></td>
                 </tr>

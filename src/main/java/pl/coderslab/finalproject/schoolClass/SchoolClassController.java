@@ -2,17 +2,17 @@ package pl.coderslab.finalproject.schoolClass;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.finalproject.student.Student;
 import pl.coderslab.finalproject.student.StudentRepository;
+import pl.coderslab.finalproject.subject.Subject;
+import pl.coderslab.finalproject.subject.SubjectRepository;
 import pl.coderslab.finalproject.teacher.Teacher;
 import pl.coderslab.finalproject.teacher.TeacherRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/class")
@@ -22,11 +22,13 @@ public class SchoolClassController {
     private final StudentRepository studentRepository;
     private final SchoolClassRepository schoolClassRepository;
     private final TeacherRepository teacherRepository;
+    private final SubjectRepository subjectRepository;
 
-    public SchoolClassController(StudentRepository studentRepository, SchoolClassRepository schoolClassRepository, TeacherRepository teacherRepository) {
+    public SchoolClassController(StudentRepository studentRepository, SchoolClassRepository schoolClassRepository, TeacherRepository teacherRepository, SubjectRepository subjectRepository) {
         this.studentRepository = studentRepository;
         this.schoolClassRepository = schoolClassRepository;
         this.teacherRepository = teacherRepository;
+        this.subjectRepository = subjectRepository;
     }
 
 
@@ -61,18 +63,28 @@ public class SchoolClassController {
     public String addClass(Model model){
         List<Teacher> teachers = teacherRepository.findAll();
         model.addAttribute("teachers", teachers);
+        model.addAttribute("subjects", subjectRepository.findAll());
         return "class/add";
     }
 
     //bartek
     @PostMapping("/add")
-    public String addClass(HttpServletRequest request){
-        String name = request.getParameter("name");
-        Long tutorId = Long.parseLong(request.getParameter("tutorId"));
+    public String addClass(HttpServletRequest request) {
         SchoolClass schoolClass = new SchoolClass();
-        schoolClass.setName(name);
-        Teacher tutor = teacherRepository.findTeacherById(tutorId);
-        schoolClass.setTutor(tutor);
+        schoolClass.setName(request.getParameter("name"));
+        schoolClass.setTutor(teacherRepository.findTeacherById(Long.parseLong(request.getParameter("tutorId"))));
+        int c = 0;
+        List<Subject> subjects = new ArrayList<>();
+        schoolClass.setSubjects(subjects);
+        for(Subject s : subjectRepository.findAll()){
+            String str = request.getParameter("subjectName" + c);
+            if(str != null){
+                subjects.add(subjectRepository.findDistinctByName(str));
+            }
+            c++;
+
+        }
+        schoolClass.setSubjects(subjects);
         schoolClassRepository.save(schoolClass);
         return "redirect:all";
     }
@@ -112,4 +124,5 @@ public class SchoolClassController {
         schoolClassRepository.deleteById(id);
         return "redirect:/class/all";
     }
+
 }

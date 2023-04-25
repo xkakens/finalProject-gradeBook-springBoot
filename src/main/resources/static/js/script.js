@@ -30,3 +30,4 @@ function removeTeacher(){
         nextTeacherId--;
     }
 }
+

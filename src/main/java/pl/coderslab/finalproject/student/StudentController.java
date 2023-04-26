@@ -144,11 +144,6 @@ public class StudentController {
 
     }
 
-    @DeleteMapping("/remove/{id}")
-    public String removeStudent(@PathVariable  Long id){
-        studentRepository.delete(studentRepository.getById(id));
-        return "student/remove";
-    }
     //michał zaczal, bartek sesja i lista klas
     @GetMapping("/update/{id}")
     public String updateStudent(@PathVariable Long id, Model model){
@@ -199,17 +194,15 @@ public class StudentController {
     public String delete(@PathVariable long id, Model model){
         Student student = studentRepository.getById(id);
         model.addAttribute("student",student);
-
-
         return "student/delete";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable long id, HttpServletRequest request){
         Student student = studentRepository.getById(id);
-        studentRepository.delete(student);
         List<Mark> marks = markRepository.findAllByStudent(student);
         markRepository.deleteAll(marks);
+        studentRepository.delete(student);
         return "redirect:/class/studentlist/"+request.getSession().getAttribute("classId");
     }
 

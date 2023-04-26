@@ -36,7 +36,8 @@
                     <td>${teacher.id}</td>
                     <td>${teacher.firstName} ${teacher.lastName}</td>
                     <td><a href="/teacher/subjectlist/${teacher.id}">Przedmioty</a><a
-                            href="/teacher/delete/${teacher.id}">Usuń</a></td>
+                            href="/teacher/delete/${teacher.id}">Usuń</a>
+                        <a href="/teacher/${teacher.id}/users" > Użytkownik </a></td>
                 </tr>
             </c:forEach>
             </tbody>

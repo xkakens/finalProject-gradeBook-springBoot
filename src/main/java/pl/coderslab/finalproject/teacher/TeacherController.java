@@ -1,12 +1,13 @@
 package pl.coderslab.finalproject.teacher;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.finalproject.schoolClass.SchoolClass;
 import pl.coderslab.finalproject.schoolClass.SchoolClassRepository;
+import pl.coderslab.finalproject.security.user.User;
+import pl.coderslab.finalproject.security.user.UserRepository;
 import pl.coderslab.finalproject.subject.Subject;
 import pl.coderslab.finalproject.subject.SubjectRepository;
 
@@ -20,27 +21,31 @@ public class TeacherController {
     private final TeacherRepository teacherRepository;
     private final SubjectRepository subjectRepository;
     private final SchoolClassRepository schoolClassRepository;
-    public TeacherController(TeacherRepository teacherRepository, SubjectRepository subjectRepository, SchoolClassRepository schoolClassRepository){
+    private final UserRepository userRepository;
+
+    public TeacherController(TeacherRepository teacherRepository, SubjectRepository subjectRepository, SchoolClassRepository schoolClassRepository, UserRepository userRepository) {
         this.teacherRepository = teacherRepository;
         this.subjectRepository = subjectRepository;
         this.schoolClassRepository = schoolClassRepository;
+        this.userRepository = userRepository;
     }
+
     @GetMapping("/all")
-    public String allTeachers(Model model){
+    public String allTeachers(Model model) {
         List<Teacher> teachers = teacherRepository.findAll();
         model.addAttribute("teachers", teachers);
         return "teacher/all";
     }
 
     @GetMapping("/add")
-    public String addTeacher(){
+    public String addTeacher() {
         return "teacher/add";
     }
 
     @PostMapping("/add")
     public String addTeacher(HttpServletRequest request, Model model,
-                             @Valid @ModelAttribute Teacher checkTeacher, BindingResult result){
-        if(result.hasErrors()){
+                             @Valid @ModelAttribute Teacher checkTeacher, BindingResult result) {
+        if (result.hasErrors()) {
             model.addAttribute("path", "/teacher/add");
             return "wrongData";
         }
@@ -54,31 +59,59 @@ public class TeacherController {
     }
 
     @GetMapping("/subjectlist/{id}")
-    public String subjectList(@PathVariable long id, Model model){
+    public String subjectList(@PathVariable long id, Model model) {
         Teacher teacher = teacherRepository.getById(id);
-        model.addAttribute("teacher",teacher);
-        model.addAttribute("subjects",subjectRepository.findSubjectsByTeachers_id(teacher.getId()));
+        model.addAttribute("teacher", teacher);
+        model.addAttribute("subjects", subjectRepository.findSubjectsByTeachers_id(teacher.getId()));
         return "teacher/subjectlist";
     }
 
     //bartek
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable long id, Model model){
-        model.addAttribute("id",id);
-        model.addAttribute("teacher",teacherRepository.getById(id));
+    public String delete(@PathVariable long id, Model model) {
+        model.addAttribute("id", id);
+        model.addAttribute("teacher", teacherRepository.getById(id));
         List<SchoolClass> schoolClasses = schoolClassRepository.findAllByTutor(teacherRepository.getById(id));
-        if(schoolClasses.size()>0) {
+        if (schoolClasses.size() > 0) {
             return "teacher/removeTutorNotification";
         }
         return "teacher/delete";
     }
+
     //bartek
     @PostMapping("/delete/{id}")
-    public String delete(@PathVariable long id){
-        for(Subject subject : subjectRepository.findSubjectsByTeachers_id(id)){
+    public String delete(@PathVariable long id) {
+        for (Subject subject : subjectRepository.findSubjectsByTeachers_id(id)) {
             subject.getTeachers().remove(teacherRepository.getById(id));
         }
         teacherRepository.deleteById(id);
         return "redirect:/teacher/all";
     }
-}
+
+    @GetMapping("/{id}/users")
+    public String users(@PathVariable Long id, Model model) {
+        Teacher teacher = teacherRepository.findTeacherById(id);
+        model.addAttribute("teacher", teacher);
+        return "teacher/users";
+    }
+    @GetMapping("/{id}/set-user")
+    public String setUser(@PathVariable Long id, Model model){
+        Teacher teacher = teacherRepository.findTeacherById(id);
+        model.addAttribute("teacher", teacher);
+        return "teacher/setuser";
+    }
+
+    @PostMapping("/{id}/set-user")
+    public String setUser(@PathVariable Long id, Model model,
+                          HttpServletRequest request){
+        User user = userRepository.findByUsername(request.getParameter("username"));
+        Teacher teacher = teacherRepository.findTeacherById(id);
+        teacher.setUser(user);
+        model.addAttribute("teacher", teacher);
+        teacherRepository.save(teacher);
+        return "redirect:/teacher/all";
+        }
+    }
+
+
+

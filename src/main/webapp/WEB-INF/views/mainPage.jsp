@@ -24,7 +24,7 @@
     <a class="goBackA" href="/student/all">
         <button class="goBack">Lista uczniów</button>
     </a>
-    <sec:authorize access="hasAnyRole('ADMIN','student')">
+    <sec:authorize access="hasAuthority('ADMIN')">
         <a class="goBackA" href="/teacher/all">
             <button class="goBack">Lista nauczycieli</button>
         </a>

@@ -6,6 +6,7 @@ import pl.coderslab.finalproject.security.role.Role;
 import pl.coderslab.finalproject.student.Student;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,9 @@ public class User {
     private Long id;
     @Column(nullable = false, unique = true, length = 60)
     private String username;
+    @NotNull
     private String password;
+
     private int enabled;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),

@@ -5,6 +5,7 @@
 </head>
 <body>
 <div class="container">
+    <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
     <h1>Nie masz dostępu do tej zawartości</h1>
 </div>
 </body>

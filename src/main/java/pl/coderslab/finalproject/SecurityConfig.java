@@ -2,13 +2,11 @@ package pl.coderslab.finalproject;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CsrfFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -19,9 +17,10 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/mainPage/**").authenticated()
                 .antMatchers("/").authenticated()
-                .antMatchers("/class/**").authenticated()
+                .antMatchers("/class/**").hasAnyAuthority("teacher","ADMIN")
                 .antMatchers("/teacher/**").hasAuthority("ADMIN")
                 .antMatchers("/student/**").authenticated()
+                .antMatchers("/user/**").hasAuthority("ADMIN")
                 .antMatchers("/subject/**").hasAuthority("ADMIN")
                 .and().formLogin()
                 .loginPage("/login")

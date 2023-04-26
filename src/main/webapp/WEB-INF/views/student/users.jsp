@@ -14,7 +14,7 @@
 <body>
     <div class="container">
         ${notification}
-        <jsp:include page="/WEB-INF/views/utils/bodyHeader.jsp" />
+            <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
         <a href="/student/${student.id}" clas="goBackA">
             <button class="goBack"><<<</button>
         </a>

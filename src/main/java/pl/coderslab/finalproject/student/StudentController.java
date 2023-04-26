@@ -1,6 +1,9 @@
 package pl.coderslab.finalproject.student;
 
 import org.aspectj.asm.IModelFilter;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +14,9 @@ import pl.coderslab.finalproject.parent.ParentRepository;
 import pl.coderslab.finalproject.schoolClass.SchoolClass;
 import pl.coderslab.finalproject.mark.Mark;
 import pl.coderslab.finalproject.schoolClass.SchoolClassRepository;
+import pl.coderslab.finalproject.security.role.Role;
+import pl.coderslab.finalproject.security.role.RoleRepository;
+import pl.coderslab.finalproject.security.user.User;
 import pl.coderslab.finalproject.security.user.UserRepository;
 import pl.coderslab.finalproject.subject.Subject;
 import pl.coderslab.finalproject.subject.SubjectRepository;
@@ -21,6 +27,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @Controller
+
 @RequestMapping("/student")
 public class StudentController {
     //michał
@@ -30,25 +37,41 @@ public class StudentController {
     private final ParentRepository parentRepository;
     private final SubjectRepository subjectRepository;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     public StudentController(StudentRepository studentRepository,
                              SchoolClassRepository schoolClassRepository,
                              MarkRepository markRepository,
                              ParentRepository parentRepository,
                              SubjectRepository subjectRepository,
-                             UserRepository userRepository) {
+                             UserRepository userRepository,
+                             RoleRepository roleRepository) {
         this.studentRepository = studentRepository;
         this.schoolClassRepository = schoolClassRepository;
         this.markRepository = markRepository;
         this.parentRepository = parentRepository;
         this.subjectRepository = subjectRepository;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     //michał
     @RequestMapping("/all")
-    public String allStudents(Model model){
-        List<Student> students = studentRepository.findAll();
+    public String allStudents(Model model, @AuthenticationPrincipal UserDetails customUser){
+        User user = userRepository.findByUsername(customUser.getUsername());
+        Set<Role> roles = user.getRoles();
+        Role admin = roleRepository.findByName("ADMIN");
+        Role student = roleRepository.findByName("student");
+        List<Student> students = new ArrayList<>();
+        if(roles.contains(admin)){
+            students = studentRepository.findAll();
+        } else if(roles.contains(student)){
+            List<Long> ids = new ArrayList<>();
+            for(Student s : user.getStudents()){
+                ids.add(s.getId());
+            }
+            students = studentRepository.findAllById(ids);
+        }
         model.addAttribute("students", students);
         return "student/all";
     }

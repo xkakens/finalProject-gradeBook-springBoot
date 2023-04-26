@@ -18,12 +18,14 @@
 <body>
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a class="goBackA" href="/class/all">
-        <button class="goBack">Lista klas</button>
-    </a>
     <a class="goBackA" href="/student/all">
         <button class="goBack">Lista uczniów</button>
     </a>
+    <sec:authorize access="hasAnyAuthority('ADMIN','teacher')">
+        <a class="goBackA" href="/class/all">
+            <button class="goBack">Lista klas</button>
+        </a>
+    </sec:authorize>
     <sec:authorize access="hasAuthority('ADMIN')">
         <a class="goBackA" href="/teacher/all">
             <button class="goBack">Lista nauczycieli</button>

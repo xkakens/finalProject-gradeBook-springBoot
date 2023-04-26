@@ -30,6 +30,9 @@
         <a class="goBackA" href="/subject/all">
             <button class="goBack">Lista przedmiotów</button>
         </a>
+        <a class="goBackA" href="/user/all">
+            <button class="goBack">Lista użytkowników</button>
+        </a>
     </sec:authorize>
     <sec:authorize access="isAuthenticated()">
         <h2>Zalogowany jako: <sec:authentication property="principal.username"/></h2>

@@ -70,10 +70,9 @@ public class UserController {
         }
         String password = request.getParameter("password");
         User user = new User();
-        user.setEnabled(1);
         user.setUsername(username);
         user.setPassword(password);
-        userRepository.save(user);
+        userService.saveUser(user);
         return "redirect:/user/all";
     }
 

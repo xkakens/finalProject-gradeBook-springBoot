@@ -215,18 +215,32 @@ public class StudentController {
                                @AuthenticationPrincipal UserDetails customUser){
         User user = userRepository.findByUsername(customUser.getUsername());
         Role student = roleRepository.findByName("student");
+        Role teacher = roleRepository.findByName("teacher");
         List<Student> students = user.getStudents();
         Set<Role> roles = user.getRoles();
         if(roles.contains(student)) {
-            if (!students.contains(studentRepository.getById(id))) {
+            if(!students.contains(studentRepository.getById(id))) {
                 return "security/403";
             }
+            model.addAttribute("subjects",subjectRepository.findAll());
+        } else if(roles.contains(teacher)){
+            Teacher teacher1 = teacherRepository.findTeacherByUser(user);
+            List<Subject> subjects = subjectRepository.findSubjectsByTeachers_id(teacher1.getId());
+            model.addAttribute("subjects",subjectRepository.findSubjectsByTeachers_id(teacher1.getId()));
+            List<SchoolClass> classes = new ArrayList<>();
+            for(Subject su : subjects){
+                classes.addAll(schoolClassRepository.findSchoolClassesBySubjects_id(su.getId()));
+            }
+            if(!classes.contains(studentRepository.getById(id))){
+                return "security/403";
+            }
+        } else{
+            model.addAttribute("subjects",subjectRepository.findAll());
         }
         Student s = studentRepository.getById(id);
         List<Mark> marks = markRepository.findAllByStudent(s);
         model.addAttribute("student", s);
         model.addAttribute("marks", marks);
-        model.addAttribute("subjects",subjectRepository.findAll());
         List<Integer> numberOfMarks = new ArrayList<>();
         for(Subject ss : subjectRepository.findAll()){
             numberOfMarks.add(markRepository.findMarksByStudentIdAndSubjectId(id,ss.getId()).size());

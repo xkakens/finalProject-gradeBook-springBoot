@@ -13,7 +13,7 @@
 <body>
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a class="goBackA" href="/student/marks/${mark.student.id}">
+    <a class="goBackA" href="javascript:history.back()">
         <button class="goBack">Anuluj</button>
     </a><br>
     <form action="/mark/update/${id}" method="post">
@@ -22,7 +22,7 @@
         <input type="text" name="description" value="${mark.description}">
         <input type="submit" style="background-color: #4CAF50; color: white" value="Potwierdź">
     </form>
-    <a class="goBackA" href="javascript:history.back()">
+    <a class="goBackA" href="/mark/delete/${mark.id}">
         <button class="rmvBtn"> Usuń ocenę </button>
     </a>
 </div>

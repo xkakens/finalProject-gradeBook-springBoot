@@ -44,8 +44,8 @@ public class StudentController {
         this.subjectRepository = subjectRepository;
     }
 
-    //michał
-    @RequestMapping("/all")
+    //michał, bartek edycja
+    @GetMapping("/all")
     public String allStudents(Model model){
         List<Student> students = studentRepository.findAll();
         model.addAttribute("students", students);
@@ -75,7 +75,7 @@ public class StudentController {
                                  @Valid @ModelAttribute Student checkStudent, BindingResult result){
         HttpSession session = request.getSession();
         if(result.hasErrors()){
-            model.addAttribute("path", "/add");
+            model.addAttribute("path", "/student/add");
             return "wrongData";
         }
         Student student = new Student();

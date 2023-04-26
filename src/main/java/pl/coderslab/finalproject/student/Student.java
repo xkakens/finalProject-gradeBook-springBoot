@@ -25,7 +25,7 @@ public class Student {
     @NotNull
     @Size(min=2, max=20)
     private String lastName;
-    @NotNull
+    //@NotNull
     private LocalDate dateOfBirth;
     @OneToOne
     private Parent firstParent;

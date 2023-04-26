@@ -6,9 +6,10 @@
   To change this template use File | Settings | File Templates.
   bartek
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/utils/header.jsp" />
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<jsp:include page="/WEB-INF/views/utils/header.jsp"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
@@ -19,12 +20,20 @@
     <a class="goBackA" href="/class/all">
         <button class="goBack">Lista klas</button>
     </a>
-    <a class="goBackA" href="/teacher/all">
-        <button class="goBack">Lista nauczycieli</button>
+    <a class="goBackA" href="/student/all">
+        <button class="goBack">Lista uczniów</button>
     </a>
-    <a class="goBackA" href="/subject/all">
-        <button class="goBack">Lista przedmiotów</button>
-    </a>
+    <sec:authorize access='hasRole("ADMIN")'>
+        <a class="goBackA" href="/teacher/all">
+            <button class="goBack">Lista nauczycieli</button>
+        </a>
+        <a class="goBackA" href="/subject/all">
+            <button class="goBack">Lista przedmiotów</button>
+        </a>
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated()">
+        <h2>Zalogowany jako: <sec:authentication property="principal.username"/></h2>
+    </sec:authorize>
 </div>
 </body>
 </html>

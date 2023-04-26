@@ -1,10 +1,15 @@
 package pl.coderslab.finalproject.schoolClass;
 
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.finalproject.security.role.Role;
+import pl.coderslab.finalproject.security.role.RoleRepository;
+import pl.coderslab.finalproject.security.user.User;
+import pl.coderslab.finalproject.security.user.UserRepository;
 import pl.coderslab.finalproject.student.Student;
 import pl.coderslab.finalproject.student.StudentRepository;
 import pl.coderslab.finalproject.subject.Subject;
@@ -17,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RequestMapping("/class")
 @Controller
@@ -26,21 +32,34 @@ public class SchoolClassController {
     private final SchoolClassRepository schoolClassRepository;
     private final TeacherRepository teacherRepository;
     private final SubjectRepository subjectRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public SchoolClassController(StudentRepository studentRepository, SchoolClassRepository schoolClassRepository, TeacherRepository teacherRepository, SubjectRepository subjectRepository) {
+    public SchoolClassController(StudentRepository studentRepository, SchoolClassRepository schoolClassRepository, TeacherRepository teacherRepository, SubjectRepository subjectRepository, UserRepository userRepository, RoleRepository roleRepository) {
         this.studentRepository = studentRepository;
         this.schoolClassRepository = schoolClassRepository;
         this.teacherRepository = teacherRepository;
         this.subjectRepository = subjectRepository;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     //michał
     @GetMapping("/all")
-    public String allClasses(Model model){
-        List<SchoolClass> classes = schoolClassRepository.findAll();
+    public String allClasses(Model model, @AuthenticationPrincipal UserDetails customUser){
+        User user = userRepository.findByUsername(customUser.getUsername());
+        Role admin = roleRepository.findByName("ADMIN");
+        Role teacher = roleRepository.findByName("teacher");
+        Set<Role> roles = user.getRoles();
+        List<SchoolClass> classes = new ArrayList<>();
         List<String> extStrings = new ArrayList<>();
         StringBuilder str = new StringBuilder();
         int size;
+        if(roles.contains(admin)){
+            classes = schoolClassRepository.findAll();
+        }else if(roles.contains(teacher)){
+            classes = schoolClassRepository.findAllByTutor(teacherRepository.findTeacherByUser(user));
+        }
         for(SchoolClass schoolClass : classes){
             size = schoolClass.getSubjects().size();
             int i = 0;

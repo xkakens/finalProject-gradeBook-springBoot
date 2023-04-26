@@ -21,6 +21,8 @@ import pl.coderslab.finalproject.security.user.User;
 import pl.coderslab.finalproject.security.user.UserRepository;
 import pl.coderslab.finalproject.subject.Subject;
 import pl.coderslab.finalproject.subject.SubjectRepository;
+import pl.coderslab.finalproject.teacher.Teacher;
+import pl.coderslab.finalproject.teacher.TeacherRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,6 +42,7 @@ public class StudentController {
     private final SubjectRepository subjectRepository;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final TeacherRepository teacherRepository;
 
     public StudentController(StudentRepository studentRepository,
                              SchoolClassRepository schoolClassRepository,
@@ -47,7 +50,8 @@ public class StudentController {
                              ParentRepository parentRepository,
                              SubjectRepository subjectRepository,
                              UserRepository userRepository,
-                             RoleRepository roleRepository) {
+                             RoleRepository roleRepository,
+                             TeacherRepository teacherRepository) {
         this.studentRepository = studentRepository;
         this.schoolClassRepository = schoolClassRepository;
         this.markRepository = markRepository;
@@ -55,6 +59,7 @@ public class StudentController {
         this.subjectRepository = subjectRepository;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.teacherRepository = teacherRepository;
     }
 
     //michał
@@ -64,6 +69,7 @@ public class StudentController {
         Set<Role> roles = user.getRoles();
         Role admin = roleRepository.findByName("ADMIN");
         Role student = roleRepository.findByName("student");
+        Role teacher = roleRepository.findByName("teacher");
         List<Student> students = new ArrayList<>();
         if(roles.contains(admin)){
             students = studentRepository.findAll();
@@ -73,6 +79,14 @@ public class StudentController {
                 ids.add(s.getId());
             }
             students = studentRepository.findAllById(ids);
+        } else if(roles.contains(teacher)){
+            Teacher teacherObj = teacherRepository.findTeacherByUser(user);
+            List<SchoolClass> classes = schoolClassRepository.findAllByTutor(teacherObj);
+            students = new ArrayList<>();
+            for(SchoolClass schoolClass : classes){
+                List<Student> studentsPart = studentRepository.findStudentsBySchoolClass(schoolClass);
+                students.addAll(studentsPart);
+            }
         }
         model.addAttribute("students", students);
         return "student/all";

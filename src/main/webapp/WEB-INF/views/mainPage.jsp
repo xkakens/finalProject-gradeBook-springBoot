@@ -32,7 +32,7 @@
         </a>
         <a class="goBackA" href="/subject/all">
             <button class="goBack">Lista przedmiotów</button>
-        </a>
+        </a><br><br>
         <a class="goBackA" href="/user/all">
             <button class="goBack">Lista użytkowników</button>
         </a>

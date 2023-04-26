@@ -2,15 +2,20 @@ package pl.coderslab.finalproject.security.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.finalproject.security.UserService;
 import pl.coderslab.finalproject.security.role.Role;
 import pl.coderslab.finalproject.security.role.RoleRepository;
 
 import javax.servlet.http.HttpServletRequest;
+<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+=======
+import javax.validation.Valid;
+>>>>>>> ae2ebe46e2426a65fd778d81bb8b6aa847e1de3e
 
 @RequestMapping("/user")
 @Controller
@@ -49,11 +54,19 @@ public class UserController {
     }
 
     @PostMapping("/add")
+<<<<<<< HEAD
     public String add(HttpServletRequest request, Model model) {
+=======
+    public String add(HttpServletRequest request, Model model, @Valid @ModelAttribute User checkUser, BindingResult result){
+>>>>>>> ae2ebe46e2426a65fd778d81bb8b6aa847e1de3e
         String username = request.getParameter("username");
         if (userRepository.countAllByUsername(username) > 0) {
             model.addAttribute("notification", "<h2 style=\"color: red;\">Nazwa użytkownika zajęta!</h2>");
             return "user/add";
+        }
+        if(result.hasErrors()){
+            model.addAttribute("path", "/user/add");
+            return "wrongData";
         }
         String password = request.getParameter("password");
         User user = new User();

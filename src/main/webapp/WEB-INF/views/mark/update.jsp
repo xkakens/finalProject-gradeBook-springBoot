@@ -13,15 +13,18 @@
 <body>
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a class="goBackA" href="/student/marks/{student.id}">
+    <a class="goBackA" href="/student/marks/${mark.student.id}">
         <button class="goBack">Anuluj</button>
     </a><br>
     <form action="/mark/update/${id}" method="post">
         <input type="number" name="value" value="${mark.value}">
         <input type="number" name="importance" value="${mark.importance}">
         <input type="text" name="description" value="${mark.description}">
-        <input type="submit" value="Potwierdź">
+        <input type="submit" style="background-color: #4CAF50; color: white" value="Potwierdź">
     </form>
+    <a class="goBackA" href="/mark/delete/${mark.id}">
+        <button class="rmvBtn"> Usuń ocenę </button>
+    </a>
 </div>
 </body>
 </html>

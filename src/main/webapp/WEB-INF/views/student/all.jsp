@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/utils/header.jsp" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <title>Lista uczniów</title>
 </head>
 <body>
@@ -30,7 +31,10 @@
                 <td>${student.id}</td>
                 <td>${student.firstName}</td>
                 <td>${student.lastName}</td>
-                <td><a href="/student/${student.id}">Więcej</a><a href="/mark/add/${student.id}">Dodaj ocenę</a></td>
+                <td><a href="/student/${student.id}">Więcej</a>
+                    <sec:authorize access="hasAnyAuthority('ADMIN', 'teacher')">
+                    <a href="/mark/add/${student.id}">Dodaj ocenę</a></td>
+                </sec:authorize>
             </tr>
         </c:forEach>
         </tbody>

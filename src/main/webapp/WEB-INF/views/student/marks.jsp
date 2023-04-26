@@ -36,7 +36,7 @@
                         <div class="bigMarkDiv">
                             <div class="tooltip">
                                 <div class="markDiv">
-                                    <span class="tooltiptext">${mark.description}</span>
+                                    <span class="tooltiptext">Opis: ${mark.description} <br> Waga: ${mark.importance}</span>
                                         ${mark.value}
                                 </div>
                             </div>

@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .antMatchers("/").authenticated()
                 .antMatchers("/class/**").hasAnyAuthority("teacher","ADMIN")
                 .antMatchers("/teacher/**").hasAuthority("ADMIN")
-                .antMatchers("/student/delete").hasAuthority("ADMIN")
+                .antMatchers("/student/delete/**").hasAuthority("ADMIN")
                 .antMatchers("/student/add").hasAuthority("ADMIN")
                 .antMatchers("/student/update/**").hasAuthority("ADMIN")
                 .antMatchers("/student/users/**").hasAnyAuthority("ADMIN")

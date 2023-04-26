@@ -93,7 +93,7 @@ public class StudentController {
     }
     //michał
     @RequestMapping("/{id}")
-    public String specificStudent(@PathVariable("id") Long id, Model model, HttpServletRequest request, @AuthenticationPrincipal UserDetails customUser){
+    public String specificStudent(@PathVariable Long id, Model model, HttpServletRequest request, @AuthenticationPrincipal UserDetails customUser){
         Student s = studentRepository.getById(id);
         User user = userRepository.findByUsername(customUser.getUsername());
         if(user.getRoles().contains(roleRepository.findByName("ADMIN"))){
@@ -110,6 +110,7 @@ public class StudentController {
             if(!flag){
                 return "security/403";
             }
+            model.addAttribute("student", s);
         } else if (user.getRoles().contains(roleRepository.findByName("student"))){
             User userr = userRepository.findByUsername(user.getUsername());
             List<Student> studentsOfUser = userr.getStudents();

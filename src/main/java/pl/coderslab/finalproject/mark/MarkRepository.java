@@ -11,5 +11,6 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
     List<Mark> findMarksBySubjectId(Long id);
     List<Mark> findMarksByStudentIdAndSubjectId(long id1, long id2);
     void deleteBySubjectId(long id);
+    void deleteAllByStudentId(Long id);
     void deleteById(Long id);
 }

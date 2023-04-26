@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.coderslab.finalproject.security.role.Role;
 import pl.coderslab.finalproject.student.Student;
+import pl.coderslab.finalproject.teacher.Teacher;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -32,5 +33,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
     @ManyToMany
-    List<Student> students;
+    private List<Student> students;
+
+
 }

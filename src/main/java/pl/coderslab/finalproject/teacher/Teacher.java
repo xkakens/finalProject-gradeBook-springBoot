@@ -2,6 +2,7 @@ package pl.coderslab.finalproject.teacher;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.finalproject.security.user.User;
 import pl.coderslab.finalproject.subject.Subject;
 
 import javax.persistence.*;
@@ -24,4 +25,7 @@ public class Teacher {
     @NotNull
     @Size(min=2, max=20)
     private String lastName;
+
+    @OneToOne
+    private User user;
 }

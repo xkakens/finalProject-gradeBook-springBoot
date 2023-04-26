@@ -14,7 +14,7 @@
 <div class="container">
   ${notification}
   <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a href="/user/all"><button class="goBack"><<<</button></a>
+    <a href="javascript:history.back()"><button class="goBack"><<<</button></a>
     <br> <br>
   <form action="/user/add" method="post">
     Nazwa użytkownika:

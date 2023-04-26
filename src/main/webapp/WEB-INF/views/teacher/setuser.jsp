@@ -12,6 +12,9 @@
     <title>Ustaw użytkownika</title>
 </head>
 <body>
+<a href="javascript:history.back()" class="goBackA">
+    <button class="goBack"><<<</button>
+</a>
 <form action="/teacher/${teacher.id}/set-user" method="post">
     <input type="text" name="username" placeholder="Wyszukaj użytkownika...">
     <input type="submit" value="Potwierdź">

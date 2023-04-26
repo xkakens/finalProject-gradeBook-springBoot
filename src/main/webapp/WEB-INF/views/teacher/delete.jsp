@@ -19,7 +19,7 @@
     Czy na pewno chcesz to zrobić?
     <br><br>
     <form action="/teacher/delete/${teacher.id}" method="post">
-        <a href="/teacher/all" class="goBackA">
+        <a href="javascript:history.back()" class="goBackA">
             <button type="button" class="deleteNo">NIE</button>
         </a>
         <button style="margin-left: 15px;" class="deleteYes">TAK</button>

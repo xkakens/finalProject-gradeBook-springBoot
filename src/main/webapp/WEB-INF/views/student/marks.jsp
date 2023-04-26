@@ -15,7 +15,7 @@
 <body>
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a href="/student/${student.id}" class="goBackA">
+    <a href="javascript:history.back()" class="goBackA">
         <button class="goBack"><<<</button>
     </a>
     <h1 class="header">Oceny ucznia ${student.firstName} ${student.lastName}</h1>

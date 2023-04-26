@@ -15,7 +15,7 @@
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
     <h2>Przed usunięciem tej klasy należy zadbać o to, aby nie było przypisanego do niej żadnego ucznia</h2>
     <br>
-    <a href="/class/update/${schoolClass.id}" class="goBackA">
+    <a href="javascript:history.back()" class="goBackA">
         <button class="goBack">Powrót</button>
     </a>
 </div>

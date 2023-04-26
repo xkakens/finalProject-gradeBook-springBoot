@@ -17,7 +17,7 @@
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
     <h1>Wprowadzono błędne dane!</h1>
-    <a class="goBackA" href="${path}">
+    <a class="goBackA" href="javascript:history.back()">
         <button class="goBack">Powrót</button>
     </a>
 </div>

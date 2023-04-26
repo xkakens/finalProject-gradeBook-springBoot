@@ -17,10 +17,7 @@ import pl.coderslab.finalproject.subject.SubjectRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/student")
@@ -44,8 +41,8 @@ public class StudentController {
         this.subjectRepository = subjectRepository;
     }
 
-    //michał, bartek edycja
-    @GetMapping("/all")
+    //michał
+    @RequestMapping("/all")
     public String allStudents(Model model){
         List<Student> students = studentRepository.findAll();
         model.addAttribute("students", students);
@@ -59,7 +56,6 @@ public class StudentController {
         model.addAttribute("schoolClass",schoolClassRepository.getById(Long.parseLong(sess.getAttribute("classId").toString())));
         Student s = studentRepository.getById(id);
         model.addAttribute("student", s);
-        LocalDate dateOfBirth = s.getDateOfBirth();
         return "student/specific";
     }
     //michał, bartek sesja
@@ -74,7 +70,7 @@ public class StudentController {
     public String addStudentPost(HttpServletRequest request, Model model,
                                  @Valid @ModelAttribute Student checkStudent, BindingResult result){
         HttpSession session = request.getSession();
-        if(result.hasErrors()){
+        if(result.hasErrors() || request.getParameter("dateOfBirth").equals("")){
             model.addAttribute("path", "/student/add");
             return "wrongData";
         }
@@ -82,7 +78,7 @@ public class StudentController {
         student.setFirstName(request.getParameter("firstName"));
         student.setLastName(request.getParameter("lastName"));
         student.setSchoolClass(schoolClassRepository.getById(Long.parseLong(session.getAttribute("classId").toString())));
-        student.setDateOfBirth(LocalDate.parse(request.getParameter("dateOfBirth")));
+        student.setDateOfBirth(request.getParameter("dateOfBirth"));
         String phoneNumber1 = request.getParameter("parentOnePhoneNumber");
         String phoneNumber2 = request.getParameter("parentTwoPhoneNumber");
         String parentOneFirstName = request.getParameter("parentOneFirstName");
@@ -142,7 +138,7 @@ public class StudentController {
         Student s = studentRepository.getById(id);
         s.setFirstName(request.getParameter("firstName"));
         s.setLastName(request.getParameter("lastName"));
-        s.setDateOfBirth(LocalDate.parse(request.getParameter("dateOfBirth")));
+        s.setDateOfBirth((request.getParameter("dateOfBirth")));
         s.setSchoolClass(schoolClassRepository.getById(Long.parseLong(request.getParameter("classId"))));
         studentRepository.save(s);
         return "redirect:/class/studentlist/"+classId;
@@ -170,15 +166,16 @@ public class StudentController {
     public String delete(@PathVariable long id, Model model){
         Student student = studentRepository.getById(id);
         model.addAttribute("student",student);
-        return "student/delete";
+        List<Mark> marks = markRepository.findAllByStudent(student);
+        if(marks.size()>0){
+            return "student/removeMarksNotification";
+        } else {
+            return "student/delete";
+        }
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable long id, HttpServletRequest request){
-        List<Mark> marks = markRepository.findAllByStudent(studentRepository.getById(id));
-        for(Mark mark : marks){
-            markRepository.delete(mark);
-        }
         studentRepository.deleteById(id);
         return "redirect:/class/studentlist/"+request.getSession().getAttribute("classId");
     }

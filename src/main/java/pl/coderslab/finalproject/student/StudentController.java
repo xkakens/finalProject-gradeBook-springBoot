@@ -136,6 +136,10 @@ public class StudentController {
     public String addStudentPost(HttpServletRequest request, Model model,
                                  @Valid @ModelAttribute Student checkStudent, BindingResult result){
         HttpSession session = request.getSession();
+        if(request.getParameter("dateOfBirth").equals("")){
+            model.addAttribute("path", "/student/add");
+            return "wrongData";
+        }
         String dateStr = request.getParameter("dateOfBirth");
         LocalDate date = LocalDate.parse(dateStr);
         int yearsStd = date.getYear();

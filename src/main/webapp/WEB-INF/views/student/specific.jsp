@@ -17,7 +17,7 @@
         <button class="goBack"><<<</button>
     </a><br>
     <h1>${student.firstName} ${student.lastName}</h1>
-    <h3>Klasa: ${schoolClass.name}</h3>
+    <h3>Klasa: ${student.schoolClass.name}</h3>
     <h3> Dane rodzica 1: </h3>
     <h4> ${student.firstParent.firstName} ${student.firstParent.lastName}<br>Numer
         telefonu: ${student.firstParent.phoneNumber}</h4>

@@ -211,7 +211,17 @@ public class StudentController {
     }
     //michał
     @GetMapping("/marks/{id}")
-    public String studentMarks(@PathVariable Long id, Model model){
+    public String studentMarks(@PathVariable Long id, Model model,
+                               @AuthenticationPrincipal UserDetails customUser){
+        User user = userRepository.findByUsername(customUser.getUsername());
+        Role student = roleRepository.findByName("student");
+        List<Student> students = user.getStudents();
+        Set<Role> roles = user.getRoles();
+        if(roles.contains(student)) {
+            if (!students.contains(studentRepository.getById(id))) {
+                return "security/403";
+            }
+        }
         Student s = studentRepository.getById(id);
         List<Mark> marks = markRepository.findAllByStudent(s);
         model.addAttribute("student", s);

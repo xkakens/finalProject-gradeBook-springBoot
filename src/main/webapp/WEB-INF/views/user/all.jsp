@@ -20,9 +20,20 @@
     <button class="goBack">Dodaj użytkownika</button>
   </a>
   <br><br><br>
-  <c:forEach var="user" items="${users}">
-    ${user.username}&nbsp;&nbsp;<a href="/user/update/${user.id}">Zmień role</a><br>
-  </c:forEach>
+  <table>
+    <thead>
+    <th>Nazwa użytkownika</th>
+    <th>Akcje</th>
+    </thead>
+    <tbody>
+    <c:forEach var="user" items="${users}">
+    <tr>
+      <td>${user.username}</td>
+      <td><a href="/user/update/${user.id}">Zmień role</a></td>
+    </tr>
+    </c:forEach>
+    </tbody>
+  </table>
 </div>
 </body>
 </html>

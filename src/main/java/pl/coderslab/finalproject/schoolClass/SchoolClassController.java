@@ -143,7 +143,7 @@ public class SchoolClassController {
         }
         schoolClass.setSubjects(subjects);
         if(schoolClass.getSubjects().size() == 0){
-            model.addAttribute("path", "/class/add");
+            model.addAttribute("path", "/class/update/" + id);
             return "wrongData";
         }
         schoolClassRepository.save(schoolClass);

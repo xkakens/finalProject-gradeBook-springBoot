@@ -19,8 +19,7 @@
         <button class="goBack"><<<</button>
     </a>
     <h1>Lista przedmiotów nauczyciela ${teacher.firstName} ${teacher.lastName}</h1>
-    <p style="color: red; text-decoration: underline;">Odsunąć nauczyciela od nauczania przedmiotu można jedynie poprzez
-        edycję przedmiotu</p>
+    <p style="color: red; text-decoration: underline;">Przypisanie nauczyciela do przedmiotu można zmienić poprzez modyfikację przedmiotu</p>
     <c:forEach var="subject" items="${subjects}">
         ${subject.name}<br>
     </c:forEach>

@@ -24,8 +24,7 @@ public class Parent {
     @NotNull
     @Size(min=2, max=15)
     private String lastName;
-    @Column(unique = true)
     @NotNull
-    @Size(min=9, max=9)
+    //@Size(min=7, max=11)
     private String phoneNumber;
 }

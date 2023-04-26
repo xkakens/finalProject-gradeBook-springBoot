@@ -1,22 +1,40 @@
 <%--
   Created by IntelliJ IDEA.
-  User: michalszyba
-  Date: 17/04/2023
-  Time: 14:07
+  User: Admin
+  Date: 26.04.2023
+  Time: 10:06
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Uczniowie</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<jsp:include page="/WEB-INF/views/utils/header.jsp" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<title>Lista uczniów</title>
 </head>
 <body>
-<c:forEach var="student" items="${students}">
-    <h1>${student.firstName} ${student.lastName}</h1>
-    ${student.schoolClass.id}
-    <br>
-    <a href="/student/${student.id}">Więcej</a>
-</c:forEach>
+<div class="container">
+    <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
+    <a class="goBackA" href="/mainPage">
+        <button class="goBack"><<<</button>
+    </a>
+    <h1>Lista uczniów</h1>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Akcje</th>
+        </thead>
+        <tbody>
+        <c:forEach var="student" items="${students}">
+            <tr>
+                <td>${student.id}</td>
+                <td>${student.firstName}</td>
+                <td>${student.lastName}</td>
+                <td><a href="/student/${student.id}">Więcej</a><a href="/mark/add/${student.id}">Dodaj ocenę</a></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

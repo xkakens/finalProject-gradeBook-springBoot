@@ -53,9 +53,6 @@ public class StudentController {
     //michał
     @RequestMapping("/{id}")
     public String specificStudent(@PathVariable("id") Long id, Model model, HttpServletRequest request){
-        HttpSession sess = request.getSession();
-        model.addAttribute("classId",sess.getAttribute("classId"));
-        model.addAttribute("schoolClass",schoolClassRepository.getById(Long.parseLong(sess.getAttribute("classId").toString())));
         Student s = studentRepository.getById(id);
         model.addAttribute("student", s);
         return "student/specific";
@@ -119,8 +116,7 @@ public class StudentController {
     }
     //michał zaczal, bartek sesja i lista klas
     @GetMapping("/update/{id}")
-    public String updateStudent(@PathVariable Long id, Model model, HttpServletRequest request){
-        HttpSession session = request.getSession();
+    public String updateStudent(@PathVariable Long id, Model model){
         Student s = studentRepository.getById(id);
         model.addAttribute("student", s);
         List<SchoolClass> c = schoolClassRepository.findAll();
@@ -132,12 +128,13 @@ public class StudentController {
     @PostMapping("/update/{id}")
     public String update(@PathVariable Long id, HttpServletRequest request, Model model,
                          @Valid @ModelAttribute Student checkStudent, BindingResult result){
-        HttpSession session = request.getSession();
         if(result.hasErrors()){
-            model.addAttribute("path", "/update/" + id);
+            model.addAttribute("path", "/student/update/" + id);
+            return "wrongData";
         }
-        Long classId = Long.parseLong(session.getAttribute("classId").toString());
         Student s = studentRepository.getById(id);
+        SchoolClass sClass = s.getSchoolClass();
+        Long classId = sClass.getId();
         s.setFirstName(request.getParameter("firstName"));
         s.setLastName(request.getParameter("lastName"));
         s.setDateOfBirth((request.getParameter("dateOfBirth")));
@@ -168,17 +165,17 @@ public class StudentController {
     public String delete(@PathVariable long id, Model model){
         Student student = studentRepository.getById(id);
         model.addAttribute("student",student);
-        List<Mark> marks = markRepository.findAllByStudent(student);
-        if(marks.size()>0){
-            return "student/removeMarksNotification";
-        } else {
-            return "student/delete";
-        }
+
+
+        return "student/delete";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable long id, HttpServletRequest request){
-        studentRepository.deleteById(id);
+        Student student = studentRepository.getById(id);
+        studentRepository.delete(student);
+        List<Mark> marks = markRepository.findAllByStudent(student);
+        markRepository.deleteAll(marks);
         return "redirect:/class/studentlist/"+request.getSession().getAttribute("classId");
     }
 

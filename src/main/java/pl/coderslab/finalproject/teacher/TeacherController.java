@@ -40,7 +40,7 @@ public class TeacherController {
     public String addTeacher(HttpServletRequest request, Model model,
                              @Valid @ModelAttribute Teacher checkTeacher, BindingResult result){
         if(result.hasErrors()){
-            model.addAttribute("path", "/add");
+            model.addAttribute("path", "/teacher/add");
             return "wrongData";
         }
         String firstName = request.getParameter("firstName");

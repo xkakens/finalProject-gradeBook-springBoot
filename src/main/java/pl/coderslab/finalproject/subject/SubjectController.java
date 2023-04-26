@@ -48,7 +48,7 @@ public class SubjectController {
     public String addSubject(HttpServletRequest request, Model model,
                              @Valid @ModelAttribute Subject checkSubject, BindingResult result){
         if(result.hasErrors()){
-            model.addAttribute("path", "/path");
+            model.addAttribute("path", "/subject/path");
             return "wrongData";
         }
         List<Teacher> teachers = new ArrayList<>();
@@ -83,7 +83,7 @@ public class SubjectController {
     public String manage(@PathVariable Long id, HttpServletRequest request,
                          @Valid @ModelAttribute Subject checkSubject, BindingResult result, Model model){
         if(result.hasErrors()){
-            model.addAttribute("path", "/update/" + id);
+            model.addAttribute("path", "/subject/update/" + id);
             return "wrongData";
         }
         List<Teacher> teachers = new ArrayList<>();

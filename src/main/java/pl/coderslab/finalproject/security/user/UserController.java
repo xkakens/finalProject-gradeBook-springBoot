@@ -3,11 +3,13 @@ package pl.coderslab.finalproject.security.user;
 import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.finalproject.security.UserService;
 import pl.coderslab.finalproject.student.StudentRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RequestMapping("/user")
 @Controller
@@ -45,11 +47,15 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public String add(HttpServletRequest request, Model model){
+    public String add(HttpServletRequest request, Model model, @Valid @ModelAttribute User checkUser, BindingResult result){
         String username = request.getParameter("username");
         if(userRepository.countAllByUsername(username)>0){
             model.addAttribute("notification","<h2 style=\"color: red;\">Nazwa użytkownika zajęta!</h2>");
             return "user/add";
+        }
+        if(result.hasErrors()){
+            model.addAttribute("path", "/user/add");
+            return "wrongData";
         }
         String password = request.getParameter("password");
         User user = new User();

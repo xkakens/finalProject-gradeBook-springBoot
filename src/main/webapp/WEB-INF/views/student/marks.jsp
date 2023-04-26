@@ -27,17 +27,17 @@
                 <h2>${subject.name}</h2><br>
                 <c:forEach var="mark" items="${marks}">
                     <c:if test="${mark.subject==subject}">
+                        <a class="goBackA" href="/mark/update/${mark.id}">
                         <div class="bigMarkDiv">
                             <div class="tooltip">
                                 <div class="markDiv">
-
                                     <span class="tooltiptext">${mark.description}</span>
                                         ${mark.value}
-
                                 </div>
                             </div>
                             <br>
                         </div>
+                        </a>
                     </c:if>
                 </c:forEach>
             </div>

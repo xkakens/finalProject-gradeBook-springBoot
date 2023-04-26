@@ -11,6 +11,7 @@ import pl.coderslab.finalproject.mark.Mark;
 import pl.coderslab.finalproject.parent.Parent;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -31,7 +32,8 @@ public class Student {
     @NotNull
     @Size(min=2, max=20)
     private String lastName;
-    @NotNull
+    @DateTimeFormat
+    @NotEmpty
     private String dateOfBirth;
     @OneToOne
     private Parent firstParent;

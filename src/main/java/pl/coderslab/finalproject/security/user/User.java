@@ -6,6 +6,8 @@ import pl.coderslab.finalproject.security.role.Role;
 import pl.coderslab.finalproject.student.Student;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +22,8 @@ public class User {
     @Column(nullable = false, unique = true, length = 60)
     private String username;
     @NotNull
+    @NotBlank
+    @NotEmpty
     private String password;
 
     private int enabled;

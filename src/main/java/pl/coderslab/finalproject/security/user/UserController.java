@@ -64,14 +64,15 @@ public class UserController {
             model.addAttribute("notification", "<h2 style=\"color: red;\">Nazwa użytkownika zajęta!</h2>");
             return "user/add";
         }
-        if(result.hasErrors()){
-            model.addAttribute("path", "/user/add");
-            return "wrongData";
-        }
+
         String password = request.getParameter("password");
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
+        if(result.hasErrors()){
+            model.addAttribute("path", "/user/add");
+            return "wrongData";
+        }
         userService.saveUser(user);
         return "redirect:/user/all";
     }

@@ -1,5 +1,6 @@
 package pl.coderslab.finalproject.student;
 
+import net.bytebuddy.asm.Advice;
 import org.aspectj.asm.IModelFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import pl.coderslab.finalproject.subject.SubjectRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -71,7 +73,15 @@ public class StudentController {
     public String addStudentPost(HttpServletRequest request, Model model,
                                  @Valid @ModelAttribute Student checkStudent, BindingResult result){
         HttpSession session = request.getSession();
-        if(result.hasErrors() || request.getParameter("dateOfBirth").equals("")){
+        String dateStr = request.getParameter("dateOfBirth");
+        LocalDate date = LocalDate.parse(dateStr);
+        int yearsStd = date.getYear();
+        System.out.println(date);
+        LocalDate today = LocalDate.now();
+        int yearToday = today.getYear();
+        int time = yearToday - yearsStd;
+        System.out.println(time);
+        if(result.hasErrors() || time < 8 || time > 15){
             model.addAttribute("path", "/student/add");
             return "wrongData";
         }
@@ -79,7 +89,7 @@ public class StudentController {
         student.setFirstName(request.getParameter("firstName"));
         student.setLastName(request.getParameter("lastName"));
         student.setSchoolClass(schoolClassRepository.getById(Long.parseLong(session.getAttribute("classId").toString())));
-        student.setDateOfBirth(request.getParameter("dateOfBirth"));
+        student.setDateOfBirth(dateStr);
         String phoneNumber1 = request.getParameter("parentOnePhoneNumber");
         String phoneNumber2 = request.getParameter("parentTwoPhoneNumber");
         String parentOneFirstName = request.getParameter("parentOneFirstName");

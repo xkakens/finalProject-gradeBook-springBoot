@@ -81,7 +81,20 @@ public class StudentController {
             students = studentRepository.findAllById(ids);
         } else if(roles.contains(teacher)){
             Teacher teacherObj = teacherRepository.findTeacherByUser(user);
-            List<SchoolClass> classes = schoolClassRepository.findAllByTutor(teacherObj);
+            List<Subject> subjects = subjectRepository.findSubjectsByTeachers_id(teacherObj.getId());
+            List<SchoolClass> classes = new ArrayList<>();
+            for(SchoolClass schoolClass : schoolClassRepository.findAll()){
+                boolean flaga = false;
+                for(Subject su : subjects){
+                    if(schoolClass.getSubjects().contains(su)){
+                        flaga = true;
+                        break;
+                    }
+                }
+                if(flaga){
+                    classes.add(schoolClass);
+                }
+            }
             students = new ArrayList<>();
             for(SchoolClass schoolClass : classes){
                 List<Student> studentsPart = studentRepository.findStudentsBySchoolClass(schoolClass);

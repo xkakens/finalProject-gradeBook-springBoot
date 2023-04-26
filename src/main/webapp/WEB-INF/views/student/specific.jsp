@@ -15,6 +15,10 @@
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
     <a class="goBackA" href="/class/studentlist/${student.schoolClass.id}">
         <button class="goBack"><<<</button>
+    </a>
+    <br>
+    <a class="goBackA" href="/student/users/${student.id}">
+        <button class="goBack">Użytkownicy</button>
     </a><br>
     <h1>${student.firstName} ${student.lastName}</h1>
     <h3>Klasa: ${student.schoolClass.name}</h3>

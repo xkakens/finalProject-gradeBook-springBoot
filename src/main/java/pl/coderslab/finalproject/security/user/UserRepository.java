@@ -9,4 +9,5 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
     int countAllByUsername(String username);
+    List<User> findUsersByStudents_Id(long id);
 }

@@ -21,7 +21,7 @@
   </a>
   <br><br><br>
   <c:forEach var="user" items="${users}">
-    ${user.username}<br>
+    ${user.username}&nbsp;&nbsp;<a href="/user/update/${user.id}">Zmień role</a><br>
   </c:forEach>
 </div>
 </body>

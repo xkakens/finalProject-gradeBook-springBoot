@@ -11,7 +11,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-
+<title>Strona główna</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 
@@ -32,7 +32,7 @@
         </a>
         <a class="goBackA" href="/subject/all">
             <button class="goBack">Lista przedmiotów</button>
-        </a><br><br>
+        </a>
         <a class="goBackA" href="/user/all">
             <button class="goBack">Lista użytkowników</button>
         </a>

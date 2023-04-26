@@ -14,7 +14,6 @@ body{
     box-shadow: inset 0 0 0 2000px var(--mainColor);
 }
 
-
 .markDiv{
     width: 100px;
     height: 40px;
@@ -105,7 +104,7 @@ td > a {
 
 .goBackA{
     text-decoration: none;
-    margin-right: 0;
+    margin: 0;
 }
 
 input{
@@ -130,7 +129,6 @@ input{
     font-size: 16px;
     cursor: pointer;
 }
-
 
 input[type="text"],
 input[type="number"],
@@ -195,6 +193,19 @@ form{
     text-align: center;
     border: 0;
     font-size: 20px;
+    margin: 5px;
+    padding: 10px;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .goBack:hover, .removeTeacher:hover, .deleteNo:hover, .deleteYes:hover{
@@ -272,8 +283,6 @@ option:hover{
     bottom: 125%;
     left: 50%;
     margin-left: -75px;
-
-
     opacity: 0;
     transition: opacity 0.7s;
 }

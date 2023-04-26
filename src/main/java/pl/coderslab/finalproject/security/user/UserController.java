@@ -7,15 +7,14 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.finalproject.security.UserService;
 import pl.coderslab.finalproject.security.role.Role;
 import pl.coderslab.finalproject.security.role.RoleRepository;
+import pl.coderslab.finalproject.student.Student;
+import pl.coderslab.finalproject.student.StudentRepository;
 
 import javax.servlet.http.HttpServletRequest;
-<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-=======
 import javax.validation.Valid;
->>>>>>> ae2ebe46e2426a65fd778d81bb8b6aa847e1de3e
 
 @RequestMapping("/user")
 @Controller
@@ -25,11 +24,16 @@ public class UserController {
     private final UserRepository userRepository;
 
     private final RoleRepository roleRepository;
+    private final StudentRepository studentRepository;
 
-    public UserController(UserService userService, UserRepository userRepository, RoleRepository roleRepository) {
+    public UserController(UserService userService,
+                          UserRepository userRepository,
+                          RoleRepository roleRepository,
+                          StudentRepository studentRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.studentRepository = studentRepository;
     }
 
     @GetMapping("/create-user")
@@ -54,11 +58,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-<<<<<<< HEAD
-    public String add(HttpServletRequest request, Model model) {
-=======
     public String add(HttpServletRequest request, Model model, @Valid @ModelAttribute User checkUser, BindingResult result){
->>>>>>> ae2ebe46e2426a65fd778d81bb8b6aa847e1de3e
         String username = request.getParameter("username");
         if (userRepository.countAllByUsername(username) > 0) {
             model.addAttribute("notification", "<h2 style=\"color: red;\">Nazwa użytkownika zajęta!</h2>");
@@ -103,5 +103,26 @@ public class UserController {
         user.setRoles(roles);
         userRepository.save(user);
         return "redirect:/user/all";
+    }
+
+    @PostMapping("/addstudent/{id}")
+    public String addStudent(@PathVariable long id, HttpServletRequest request, Model model){
+        String username = request.getParameter("username");
+        if(userRepository.countAllByUsername(username) == 0){
+            model.addAttribute("notification","<h2 style=\"color: red;\">Taki użytkownik nie istnieje</h2>");
+            return "redirect:/student/users/" + id;
+        }
+        User user = userRepository.findByUsername(username);
+        user.getStudents().add(studentRepository.getById(id));
+        userRepository.save(user);
+        return "redirect:/student/users/" + id;
+    }
+
+    @PostMapping("/removestudent/{studentId}/{userId}")
+    public String removeStudent(@PathVariable long studentId, @PathVariable long userId){
+        User user = userRepository.getById(userId);
+        user.getStudents().remove(studentRepository.getById(studentId));
+        userRepository.save(user);
+        return "redirect:/student/users/" + studentId;
     }
 }

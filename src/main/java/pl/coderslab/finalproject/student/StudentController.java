@@ -35,12 +35,14 @@ public class StudentController {
                              SchoolClassRepository schoolClassRepository,
                              MarkRepository markRepository,
                              ParentRepository parentRepository,
-                             SubjectRepository subjectRepository) {
+                             SubjectRepository subjectRepository,
+                             UserRepository userRepository) {
         this.studentRepository = studentRepository;
         this.schoolClassRepository = schoolClassRepository;
         this.markRepository = markRepository;
         this.parentRepository = parentRepository;
         this.subjectRepository = subjectRepository;
+        this.userRepository = userRepository;
     }
 
     //michał

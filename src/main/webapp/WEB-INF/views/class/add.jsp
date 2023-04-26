@@ -26,7 +26,6 @@
         <a href="/teacher/add"> Nowy nauczyciel... </a>
         <br>
         <select size="10" name="tutorId">
-
             <c:forEach var="teacher" items="${teachers}">
                 <option value="${teacher.id}"> ${teacher.id}: ${teacher.firstName} ${teacher.lastName}</option>
             </c:forEach>

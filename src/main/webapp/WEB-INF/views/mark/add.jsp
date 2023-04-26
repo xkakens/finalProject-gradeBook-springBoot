@@ -19,7 +19,7 @@
     </a>
     <h1> Dodaj nową ocenę </h1>
     <br>
-    <form action="/mark/add" method="post">
+    <form action="/mark/add/${studentId}" method="post">
         <br> Ocena <br>
         <input type="number" name="value">
         <br>

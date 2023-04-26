@@ -36,12 +36,12 @@ public class MarkController {
         return "mark/add";
     }
 
-    @PostMapping("/add")
-    public String addMark(HttpServletRequest request, Model model, @Valid @ModelAttribute Mark checkMark,
+    @PostMapping("/add/{id}")
+    public String addMark(@PathVariable Long id, HttpServletRequest request, Model model, @Valid @ModelAttribute Mark checkMark,
                           BindingResult result) {
         HttpSession session = request.getSession();
         if(result.hasErrors()){
-            model.addAttribute("path", "/add");
+            model.addAttribute("path", "/mark/add/" + id);
             return "wrongData";
         }
         Mark mark = new Mark();
@@ -93,7 +93,7 @@ public class MarkController {
                              @Valid @ModelAttribute Mark checkMark, BindingResult result, Model model) {
         HttpSession session = request.getSession();
         if(result.hasErrors()){
-            model.addAttribute("path", "/update/" + id);
+            model.addAttribute("path", "/mark/update/" + id);
             return "wrongData";
         }
         Mark m = markRepository.getById(id);

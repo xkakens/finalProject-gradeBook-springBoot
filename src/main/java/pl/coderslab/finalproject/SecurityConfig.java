@@ -25,8 +25,9 @@ public class SecurityConfig {
                 .and().formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/").and().logout().logoutSuccessUrl("/")
-                .permitAll().and().
-                csrf().disable();
+                .permitAll()
+                .and().exceptionHandling().accessDeniedPage("/403")
+                .and().csrf().disable();
         return http.build();
     }
 }

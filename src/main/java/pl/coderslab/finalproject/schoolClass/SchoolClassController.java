@@ -88,7 +88,7 @@ public class SchoolClassController {
         SchoolClass schoolClass = new SchoolClass();
         schoolClass.setName(request.getParameter("name"));
         if(result.hasErrors() || request.getParameter("tutorId") == null){
-            model.addAttribute("path", "/add");
+            model.addAttribute("path", "/class/add");
             return "wrongData";
         }
         schoolClass.setTutor(teacherRepository.findTeacherById(Long.parseLong(request.getParameter("tutorId"))));
@@ -103,7 +103,7 @@ public class SchoolClassController {
         }
         schoolClass.setSubjects(subjects);
         if(schoolClass.getSubjects().size() == 0){
-            model.addAttribute("path", "/add");
+            model.addAttribute("path", "/class/add");
             return "wrongData";
         }
         schoolClassRepository.save(schoolClass);
@@ -128,7 +128,7 @@ public class SchoolClassController {
                                   @Valid @ModelAttribute SchoolClass checkClass, BindingResult result,  Model model){
         SchoolClass schoolClass = schoolClassRepository.getById(id);
         if(result.hasErrors() || request.getParameter("tutorId") == null){
-            model.addAttribute("path", "/add");
+            model.addAttribute("path", "/class/update/" + id);
             return "wrongData";
         }
         schoolClass.setTutor(teacherRepository.getById(Long.parseLong(request.getParameter("tutorId"))));
@@ -144,7 +144,7 @@ public class SchoolClassController {
         }
         schoolClass.setSubjects(subjects);
         if(schoolClass.getSubjects().size() == 0){
-            model.addAttribute("path", "/add");
+            model.addAttribute("path", "/class/add");
             return "wrongData";
         }
         schoolClassRepository.save(schoolClass);

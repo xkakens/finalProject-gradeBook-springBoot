@@ -145,7 +145,6 @@ public class StudentController {
     public String studentMarks(@PathVariable Long id, Model model){
         Student s = studentRepository.getById(id);
         List<Mark> marks = markRepository.findAllByStudent(s);
-        marks.sort(Comparator.comparing(Mark::getSubject, Comparator.comparing(Subject::getName)));
         model.addAttribute("student", s);
         model.addAttribute("marks", marks);
         model.addAttribute("subjects",subjectRepository.findAll());

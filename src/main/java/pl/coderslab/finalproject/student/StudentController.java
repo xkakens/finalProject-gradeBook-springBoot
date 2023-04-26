@@ -72,7 +72,7 @@ public class StudentController {
         Role teacher = roleRepository.findByName("teacher");
         List<Student> students = new ArrayList<>();
         if(roles.contains(admin)){
-            students = studentRepository.findAll();
+            students = studentRepository.findAllByOrderByLastNameAsc();
         } else if(roles.contains(student)){
             List<Long> ids = new ArrayList<>();
             for(Student s : user.getStudents()){
@@ -97,7 +97,7 @@ public class StudentController {
             }
             students = new ArrayList<>();
             for(SchoolClass schoolClass : classes){
-                List<Student> studentsPart = studentRepository.findStudentsBySchoolClass(schoolClass);
+                List<Student> studentsPart = studentRepository.findStudentsBySchoolClassOrderByLastNameAsc(schoolClass);
                 students.addAll(studentsPart);
             }
         }
@@ -112,17 +112,6 @@ public class StudentController {
         if(user.getRoles().contains(roleRepository.findByName("ADMIN"))){
             model.addAttribute("student", s);
         } else if (user.getRoles().contains(roleRepository.findByName("teacher"))){
-            List<SchoolClass> classes = schoolClassRepository.findAllByTutor(teacherRepository.findTeacherByUser(user));
-            boolean flag = false;
-            for(SchoolClass sc : classes){
-                if(studentRepository.findStudentsBySchoolClass(sc).contains(studentRepository.getById(id))){
-                    flag = true;
-                    break;
-                }
-            }
-            if(!flag){
-                return "security/403";
-            }
             model.addAttribute("student", s);
         } else if (user.getRoles().contains(roleRepository.findByName("student"))){
             User userr = userRepository.findByUsername(user.getUsername());
@@ -232,22 +221,17 @@ public class StudentController {
         Role teacher = roleRepository.findByName("teacher");
         List<Student> students = user.getStudents();
         Set<Role> roles = user.getRoles();
+        List<Subject> subjects = new ArrayList<>();
         if(roles.contains(student)) {
             if(!students.contains(studentRepository.getById(id))) {
                 return "security/403";
             }
-            model.addAttribute("subjects",subjectRepository.findAll());
+            subjects = subjectRepository.findAll();
+            model.addAttribute("subjects",subjects);
         } else if(roles.contains(teacher)){
             Teacher teacher1 = teacherRepository.findTeacherByUser(user);
-            List<Subject> subjects = subjectRepository.findSubjectsByTeachers_id(teacher1.getId());
-            model.addAttribute("subjects",subjectRepository.findSubjectsByTeachers_id(teacher1.getId()));
-            List<SchoolClass> classes = new ArrayList<>();
-            for(Subject su : subjects){
-                classes.addAll(schoolClassRepository.findSchoolClassesBySubjects_id(su.getId()));
-            }
-            if(!classes.contains(studentRepository.getById(id))){
-                return "security/403";
-            }
+            subjects=subjectRepository.findSubjectsByTeachers_id(teacher1.getId());
+            model.addAttribute("subjects",subjects);
         } else{
             model.addAttribute("subjects",subjectRepository.findAll());
         }
@@ -256,7 +240,7 @@ public class StudentController {
         model.addAttribute("student", s);
         model.addAttribute("marks", marks);
         List<Integer> numberOfMarks = new ArrayList<>();
-        for(Subject ss : subjectRepository.findAll()){
+        for(Subject ss : subjects){
             numberOfMarks.add(markRepository.findMarksByStudentIdAndSubjectId(id,ss.getId()).size());
         }
         model.addAttribute("numberOfMarks",numberOfMarks);

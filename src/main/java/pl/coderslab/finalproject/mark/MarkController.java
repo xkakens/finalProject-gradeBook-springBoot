@@ -1,17 +1,25 @@
 package pl.coderslab.finalproject.mark;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.finalproject.security.role.Role;
+import pl.coderslab.finalproject.security.role.RoleRepository;
+import pl.coderslab.finalproject.security.user.User;
+import pl.coderslab.finalproject.security.user.UserRepository;
 import pl.coderslab.finalproject.student.StudentRepository;
 import pl.coderslab.finalproject.subject.Subject;
 import pl.coderslab.finalproject.subject.SubjectRepository;
+import pl.coderslab.finalproject.teacher.TeacherRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/mark")
@@ -19,20 +27,33 @@ public class MarkController {
     private final MarkRepository markRepository;
     private final StudentRepository studentRepository;
     private final SubjectRepository subjectRepository;
+    private final RoleRepository roleRepository;
+    private final TeacherRepository teacherRepository;
+    private final UserRepository userRepository;
 
-    public MarkController(MarkRepository markRepository, StudentRepository studentRepository, SubjectRepository subjectRepository) {
+    public MarkController(UserRepository userRepository, TeacherRepository teacherRepository, MarkRepository markRepository, StudentRepository studentRepository, SubjectRepository subjectRepository, RoleRepository roleRepository) {
         this.markRepository = markRepository;
         this.studentRepository = studentRepository;
         this.subjectRepository = subjectRepository;
+        this.roleRepository = roleRepository;
+        this.teacherRepository = teacherRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/add/{studentId}")
-    public String addMark(@PathVariable Long studentId, HttpServletRequest request, Model model) {
+    public String addMark(@PathVariable Long studentId, HttpServletRequest request, Model model, @AuthenticationPrincipal UserDetails customUser) {
+        User user = userRepository.findByUsername(customUser.getUsername());
+        Set<Role> roles = user.getRoles();
+        Role teacher = roleRepository.findByName("teacher");
+        Role admin = roleRepository.findByName("ADMIN");
         HttpSession session = request.getSession();
         session.setAttribute("studentId", studentId);
         model.addAttribute("studentId", session.getAttribute("studentId"));
-        List<Subject> subjects = subjectRepository.findAll();
-        model.addAttribute("subjects", subjects);
+        if(roles.contains(teacher)) {
+            model.addAttribute("subjects",subjectRepository.findSubjectsByTeachers_id(teacherRepository.findTeacherByUser(user).getId()));
+        } else {
+            model.addAttribute("subjects", subjectRepository.findAll());
+        }
         return "mark/add";
     }
 

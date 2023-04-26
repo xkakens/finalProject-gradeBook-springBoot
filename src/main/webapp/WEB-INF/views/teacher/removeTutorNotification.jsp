@@ -15,7 +15,7 @@
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
     <h2>Przed usunięciem tego nauczyciela należy zadbać, aby nie był on wychowawcą żadnej klasy</h2>
     <br>
-    <a href="javascript:history.back()" class="goBackA">
+    <a href="/teacher/all" class="goBackA">
         <button class="goBack">Powrót</button>
     </a>
 </div>

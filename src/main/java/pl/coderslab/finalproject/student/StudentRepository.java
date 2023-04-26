@@ -11,5 +11,6 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findStudentsBySchoolClassId(Long id);
     List<Student> findStudentsBySchoolClass(SchoolClass schoolClass);
-
+    List<Student> findStudentsBySchoolClassOrderByLastNameAsc(SchoolClass schoolClass);
+    List<Student> findAllByOrderByLastNameAsc();
 }

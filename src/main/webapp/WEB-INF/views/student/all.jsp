@@ -14,7 +14,7 @@
 <body>
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a class="goBackA" href="javascript:history.back()">
+    <a class="goBackA" href="/mainPage">
         <button class="goBack"><<<</button>
     </a>
     <h1>Lista uczniów</h1>
@@ -32,9 +32,6 @@
                 <td>${student.firstName}</td>
                 <td>${student.lastName}</td>
                 <td><a href="/student/${student.id}">Więcej</a>
-                    <sec:authorize access="hasAnyAuthority('ADMIN', 'teacher')">
-                    <a href="/mark/add/${student.id}">Dodaj ocenę</a></td>
-                </sec:authorize>
             </tr>
         </c:forEach>
         </tbody>

@@ -12,7 +12,7 @@
     <title>Ustaw użytkownika</title>
 </head>
 <body>
-<a href="javascript:history.back()" class="goBackA">
+<a href="/teacher/all" class="goBackA">
     <button class="goBack"><<<</button>
 </a>
 <form action="/teacher/${teacher.id}/set-user" method="post">

@@ -16,7 +16,7 @@
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
     <h2>Przed usunięciem tego przedmiotu należy zadbać, aby żadna klasa się go nie uczyła</h2>
     <br>
-    <a href="javascript:history.back()" class="goBackA">
+    <a href="/subject/all" class="goBackA">
         <button class="goBack">Powrót</button>
     </a>
 </div>

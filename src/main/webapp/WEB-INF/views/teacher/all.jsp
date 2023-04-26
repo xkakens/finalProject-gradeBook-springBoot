@@ -14,7 +14,7 @@
 <body>
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a class="goBackA" href="javascript:history.back()">
+    <a class="goBackA" href="/mainPage">
         <button class="goBack"><<<</button>
     </a>
     <a href="/teacher/add">

@@ -13,7 +13,7 @@
 <body>
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a class="goBackA" href="javascript:history.back()">
+    <a class="goBackA" href="/student/marks/${mark.student.id}">
         <button class="goBack">Anuluj</button>
     </a><br>
     <form action="/mark/update/${id}" method="post">

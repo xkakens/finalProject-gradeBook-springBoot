@@ -15,7 +15,7 @@
 <body>
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a href="javascript:history.back()" class="goBackA">
+    <a href="/student/${student.id}" class="goBackA">
         <button class="goBack"><<<</button>
     </a>
     <h1 class="header">Oceny ucznia ${student.firstName} ${student.lastName}</h1>
@@ -26,6 +26,7 @@
     </sec:authorize>
     <br><br><br>
     <c:forEach var="subject" items="${subjects}" varStatus="loop">
+        Przedmiot ${subject.name}: ${numberOfMarks[loop.index]}<br>
         <c:if test="${numberOfMarks[loop.index]>0}">
             <div class="subjectMark">
                 <h2>${subject.name}</h2><br>

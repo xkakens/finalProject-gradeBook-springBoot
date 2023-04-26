@@ -16,7 +16,7 @@
 <div class="container">
     ${notification}
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a href="javascript:history.back()" clas="goBackA">
+    <a href="/teacher/all" clas="goBackA">
         <button class="goBack"><<<</button>
     </a>
     <h2>Nauczyciel: ${teacher.firstName} ${teacher.lastName}</h2>

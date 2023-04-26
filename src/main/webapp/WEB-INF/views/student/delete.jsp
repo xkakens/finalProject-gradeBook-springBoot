@@ -32,7 +32,7 @@
     Czy na pewno chcesz to zrobić? <span class="color: red;">Usunie to wszystkie oceny przypisane do tego ucznia!</span>
     <br><br>
     <form action="/student/delete/${student.id}" method="post">
-        <a href="javascript:history.back()" class="goBackA">
+        <a href="/student/${student.id}" class="goBackA">
             <button type="button" class="deleteNo">NIE</button>
         </a>
         <button style="margin-left: 15px;" class="deleteYes">TAK</button>

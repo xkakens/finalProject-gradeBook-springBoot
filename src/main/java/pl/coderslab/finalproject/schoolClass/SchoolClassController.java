@@ -84,7 +84,6 @@ public class SchoolClassController {
     @PostMapping("/add")
     public String addClass(HttpServletRequest request, Model model,
                            @Valid @ModelAttribute SchoolClass checkClass, BindingResult result) {
-
         SchoolClass schoolClass = new SchoolClass();
         schoolClass.setName(request.getParameter("name"));
         if(result.hasErrors() || request.getParameter("tutorId") == null){

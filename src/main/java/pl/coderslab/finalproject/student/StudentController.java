@@ -110,7 +110,7 @@ public class StudentController {
         return "redirect:/class/studentlist/" + session.getAttribute("classId");
 
     }
-    //michał(nie wiemy czy działa nie testowaliśmy)
+
     @DeleteMapping("/remove/{id}")
     public String removeStudent(@PathVariable  Long id){
         studentRepository.delete(studentRepository.getById(id));

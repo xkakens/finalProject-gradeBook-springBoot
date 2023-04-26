@@ -73,15 +73,6 @@ public class MarkController {
         markRepository.deleteById(markId);
         return "redirect:/student/marks/" + studentId;
     }
-
-    //poczatkowa wersja michala
-//    @RequestMapping ("/remove/{markId}")
-//    public String removeMark(HttpServletRequest request, @PathVariable Long markId){
-//        HttpSession session = request.getSession();
-//        markRepository.deleteById(markId);
-//        return "redirect:/student/marks/" + session.getAttribute("studentId");
-//    }
-
     @GetMapping("/update/{id}")
     public String updateMark(@PathVariable Long id, Model model) {
         model.addAttribute("mark", markRepository.getById(id));

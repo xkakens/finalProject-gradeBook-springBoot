@@ -210,7 +210,7 @@ public class StudentController {
         s.setDateOfBirth((request.getParameter("dateOfBirth")));
         s.setSchoolClass(schoolClassRepository.getById(Long.parseLong(request.getParameter("classId"))));
         studentRepository.save(s);
-        return "redirect:/class/studentlist/"+classId;
+        return "redirect:/class/studentlist/"+s.getSchoolClass().getId();
     }
     //michał
     @GetMapping("/marks/{id}")
@@ -233,6 +233,7 @@ public class StudentController {
             subjects=subjectRepository.findSubjectsByTeachers_id(teacher1.getId());
             model.addAttribute("subjects",subjects);
         } else{
+            subjects = subjectRepository.findAll();
             model.addAttribute("subjects",subjectRepository.findAll());
         }
         Student s = studentRepository.getById(id);

@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-    <jsp:include page="/WEB-INF/views/utils/bodyHeader.jsp" />
+    <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
     <h1 style="color: red;">USUWASZ PRZEDMIOT <span style="color: black;">${subject.name} (id: ${subject.id})</span>
     </h1>
     Czy na pewno chcesz to zrobić? <span style="color: red;">Wszystkie oceny powiązane z tym przedmiotem zostaną usunięte!</span>

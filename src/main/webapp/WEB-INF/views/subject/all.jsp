@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="container">
-    <jsp:include page="/WEB-INF/views/utils/bodyHeader.jsp" />
+    <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
     <a class="goBackA" href="javascript:history.back()">
         <button class="goBack"><<<</button>
     </a>

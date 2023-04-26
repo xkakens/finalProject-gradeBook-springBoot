@@ -27,7 +27,6 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nazwa</th>
                 <th scope="col">Wychowawca</th>
-                <th scope="col">Rozszerzane przedmioty</th>
                 <th scope="col">Akcje</th>
             </tr>
             </thead>
@@ -37,7 +36,6 @@
                     <td>${schoolClass.id}</td>
                     <td>${schoolClass.name}</td>
                     <td>${schoolClass.tutor.firstName} ${schoolClass.tutor.lastName} (${schoolClass.tutor.id})</td>
-                    <td>${ext[loop.index]}</td>
                     <td><a href="/class/update/${schoolClass.id}">Zarządzaj</a></td>
                 </tr>
             </c:forEach>

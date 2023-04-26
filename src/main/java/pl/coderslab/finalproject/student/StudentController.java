@@ -11,6 +11,7 @@ import pl.coderslab.finalproject.parent.ParentRepository;
 import pl.coderslab.finalproject.schoolClass.SchoolClass;
 import pl.coderslab.finalproject.mark.Mark;
 import pl.coderslab.finalproject.schoolClass.SchoolClassRepository;
+import pl.coderslab.finalproject.security.user.UserRepository;
 import pl.coderslab.finalproject.subject.Subject;
 import pl.coderslab.finalproject.subject.SubjectRepository;
 
@@ -28,6 +29,7 @@ public class StudentController {
     private final MarkRepository markRepository;
     private final ParentRepository parentRepository;
     private final SubjectRepository subjectRepository;
+    private final UserRepository userRepository;
 
     public StudentController(StudentRepository studentRepository,
                              SchoolClassRepository schoolClassRepository,
@@ -178,5 +180,12 @@ public class StudentController {
     public String delete(@PathVariable long id, HttpServletRequest request){
         studentRepository.deleteById(id);
         return "redirect:/class/studentlist/"+request.getSession().getAttribute("classId");
+    }
+
+    @GetMapping("/users/{id}")
+    public String users(Model model, @PathVariable long id){
+        model.addAttribute("users",userRepository.findUsersByStudents_Id(id));
+        model.addAttribute("student",studentRepository.getById(id));
+        return "student/users";
     }
 }

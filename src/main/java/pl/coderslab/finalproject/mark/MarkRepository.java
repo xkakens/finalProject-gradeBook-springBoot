@@ -8,7 +8,6 @@ import java.util.List;
 //michał
 public interface MarkRepository extends JpaRepository<Mark, Long> {
     List<Mark> findAllByStudent(Student s);
-    Mark findDistinctByIdAndStudent(Long id, Student student);
     List<Mark> findMarksBySubjectId(Long id);
     List<Mark> findMarksByStudentIdAndSubjectId(long id1, long id2);
     void deleteBySubjectId(long id);

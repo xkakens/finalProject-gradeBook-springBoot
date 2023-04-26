@@ -7,6 +7,7 @@
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
     <h1>Nie masz dostępu do tej zawartości</h1>
+    <a href="javascript:history.back()" class="goBackA"><button class="goBack"><<<</button></a>
 </div>
 </body>
 </html>

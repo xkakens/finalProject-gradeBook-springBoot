@@ -15,7 +15,7 @@
 <body>
 <div class="container">
     <jsp:include page="/WEB-INF/views/utils/bodyHeader.jsp" />
-    <a class="goBackA" href="/mainPage">
+    <a class="goBackA" href="javascript:history.back()">
         <button class="goBack"><<<</button>
     </a>
     <a href="/subject/add">

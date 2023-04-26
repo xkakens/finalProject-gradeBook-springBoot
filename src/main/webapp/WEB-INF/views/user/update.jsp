@@ -13,7 +13,7 @@
 <body>
 <div class="container">
   <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-  <a class="goBackA" href="/user/all">
+  <a class="goBackA" href="javascript:history.back()">
     <button class="goBack"><<<</button>
   </a>
   <h2>Zmieniasz role użytkownika <span style="color:red;">${user.username}</span></h2>

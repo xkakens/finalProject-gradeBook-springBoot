@@ -14,7 +14,7 @@
 <body>
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a href="/class/studentlist/${sessionScope.classId}" class="goBackA">
+    <a href="javascript:history.back()" class="goBackA">
         <button class="goBack"><<<</button>
     </a>
     <h1> Dodaj nową ocenę </h1>

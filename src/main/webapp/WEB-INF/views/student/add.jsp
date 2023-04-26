@@ -13,7 +13,7 @@
 <body>
 <div class="container">
     <%@ include file="/WEB-INF/views/utils/bodyHeader.jsp" %>
-    <a class="goBackA" href="/class/studentlist/${classId}">
+    <a class="goBackA" href="javascript:history.back()">
         <button class="goBack"><<<</button>
     </a><br>
     <h1>Dodawanie studenta</h1>

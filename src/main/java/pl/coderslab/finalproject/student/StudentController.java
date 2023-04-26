@@ -93,9 +93,32 @@ public class StudentController {
     }
     //michał
     @RequestMapping("/{id}")
-    public String specificStudent(@PathVariable("id") Long id, Model model, HttpServletRequest request){
+    public String specificStudent(@PathVariable("id") Long id, Model model, HttpServletRequest request, @AuthenticationPrincipal UserDetails customUser){
         Student s = studentRepository.getById(id);
-        model.addAttribute("student", s);
+        User user = userRepository.findByUsername(customUser.getUsername());
+        if(user.getRoles().contains(roleRepository.findByName("ADMIN"))){
+            model.addAttribute("student", s);
+        } else if (user.getRoles().contains(roleRepository.findByName("teacher"))){
+            List<SchoolClass> classes = schoolClassRepository.findAllByTutor(teacherRepository.findTeacherByUser(user));
+            boolean flag = false;
+            for(SchoolClass sc : classes){
+                if(studentRepository.findStudentsBySchoolClass(sc).contains(studentRepository.getById(id))){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                return "security/403";
+            }
+        } else if (user.getRoles().contains(roleRepository.findByName("student"))){
+            User userr = userRepository.findByUsername(user.getUsername());
+            List<Student> studentsOfUser = userr.getStudents();
+            if(!studentsOfUser.contains(studentRepository.getById(id))){
+                return "security/403";
+            }
+            model.addAttribute("student", s);
+        }
+
         return "student/specific";
     }
     //michał, bartek sesja

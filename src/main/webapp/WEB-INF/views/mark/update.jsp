@@ -22,7 +22,7 @@
         <input type="text" name="description" value="${mark.description}">
         <input type="submit" style="background-color: #4CAF50; color: white" value="Potwierdź">
     </form>
-    <a class="goBackA" href="/mark/delete/${mark.id}">
+    <a class="goBackA" href="javascript:history.back()">
         <button class="rmvBtn"> Usuń ocenę </button>
     </a>
 </div>

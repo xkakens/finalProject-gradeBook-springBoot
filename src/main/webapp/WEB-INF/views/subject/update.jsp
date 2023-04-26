@@ -17,7 +17,7 @@
 <body>
 <div class="container">
     <jsp:include page="/WEB-INF/views/utils/bodyHeader.jsp" />
-    <a class="goBackA" href="/subject/all">
+    <a class="goBackA" href="javascript:history.back()">
         <button class="goBack"><<<</button>
     </a>
     <h1>Zmiana danych przedmiotu</h1>

@@ -41,8 +41,9 @@ public class UserController {
     @ResponseBody
     public String createUser() {
         User user = new User();
-        user.setUsername("newUser");
-        user.setPassword("password");
+        user.setUsername("admin");
+        user.setPassword("admin");
+        user.getRoles().add(roleRepository.findByName("admin"));
         userService.saveUser(user);
         return "admin";
     }

@@ -233,6 +233,7 @@ public class StudentController {
             subjects=subjectRepository.findSubjectsByTeachers_id(teacher1.getId());
             model.addAttribute("subjects",subjects);
         } else{
+            subjects = subjectRepository.findAll();
             model.addAttribute("subjects",subjectRepository.findAll());
         }
         Student s = studentRepository.getById(id);

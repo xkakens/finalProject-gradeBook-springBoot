@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.finalproject.schoolClass.SchoolClassRepository;
 import pl.coderslab.finalproject.security.role.Role;
 import pl.coderslab.finalproject.security.role.RoleRepository;
 import pl.coderslab.finalproject.security.user.User;
@@ -18,6 +19,7 @@ import pl.coderslab.finalproject.teacher.TeacherRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -30,14 +32,16 @@ public class MarkController {
     private final RoleRepository roleRepository;
     private final TeacherRepository teacherRepository;
     private final UserRepository userRepository;
+    private final SchoolClassRepository schoolClassRepository;
 
-    public MarkController(UserRepository userRepository, TeacherRepository teacherRepository, MarkRepository markRepository, StudentRepository studentRepository, SubjectRepository subjectRepository, RoleRepository roleRepository) {
+    public MarkController(SchoolClassRepository schoolClassRepository, UserRepository userRepository, TeacherRepository teacherRepository, MarkRepository markRepository, StudentRepository studentRepository, SubjectRepository subjectRepository, RoleRepository roleRepository) {
         this.markRepository = markRepository;
         this.studentRepository = studentRepository;
         this.subjectRepository = subjectRepository;
         this.roleRepository = roleRepository;
         this.teacherRepository = teacherRepository;
         this.userRepository = userRepository;
+        this.schoolClassRepository = schoolClassRepository;
     }
 
     @GetMapping("/add/{studentId}")
@@ -50,7 +54,15 @@ public class MarkController {
         session.setAttribute("studentId", studentId);
         model.addAttribute("studentId", session.getAttribute("studentId"));
         if(roles.contains(teacher)) {
-            model.addAttribute("subjects",subjectRepository.findSubjectsByTeachers_id(teacherRepository.findTeacherByUser(user).getId()));
+            List<Subject> subjectsTeacher = subjectRepository.findSubjectsByTeachers_id(teacherRepository.findTeacherByUser(user).getId());
+            List<Subject> subjectsStudent = studentRepository.getById(studentId).getSchoolClass().getSubjects();
+            List<Subject> result = new ArrayList<>();
+            for(Subject su : subjectsTeacher){
+                if(subjectsStudent.contains(su)){
+                    result.add(su);
+                }
+            }
+            model.addAttribute("subjects",result);
         } else {
             model.addAttribute("subjects", subjectRepository.findAll());
         }

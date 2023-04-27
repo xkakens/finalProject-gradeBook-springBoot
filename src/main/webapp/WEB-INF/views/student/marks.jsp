@@ -26,7 +26,6 @@
     </sec:authorize>
     <br><br><br>
     <c:forEach var="subject" items="${subjects}" varStatus="loop">
-        Przedmiot ${subject.name}: ${numberOfMarks[loop.index]}<br>
         <c:if test="${numberOfMarks[loop.index]>0}">
             <div class="subjectMark">
                 <h2>${subject.name}</h2><br>
